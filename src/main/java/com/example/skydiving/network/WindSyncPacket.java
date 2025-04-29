@@ -1,9 +1,12 @@
 package com.example.skydiving.network;
 
 import net.minecraft.network.PacketByteBuf;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec3d;
 
 public class WindSyncPacket {
+    public static final Identifier WIND_PACKET_ID = new Identifier("skydivingmod", "wind_sync");
+
     public final Vec3d windDirection;
     public final double windSpeed;
 
