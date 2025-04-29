@@ -1,5 +1,7 @@
 package com.example.skydiving;
 
+import net.minecraft.util.math.Vec3d;
+
 public class WindUtils {
     public static double clampSpeed(double speed) {
         return Math.max(SkydivingConfig.MIN_WIND_SPEED, Math.min(SkydivingConfig.MAX_WIND_SPEED, speed));
@@ -18,5 +20,11 @@ public class WindUtils {
 
         int index = (int) Math.round(angle / 22.5) % 16;
         return directions[index];
+    }
+
+
+    public static String windToString(Vec3d direction, double speed) {
+        String strDirection = vectorToCompass(direction.x, direction.z);
+        return String.format("Speed: %.2f | Direction: %s", speed, strDirection);
     }
 }
