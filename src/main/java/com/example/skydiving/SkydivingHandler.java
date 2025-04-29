@@ -13,8 +13,6 @@ import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
 
-import java.util.Random;
-
 import static com.example.skydiving.SkydivingConfig.*;
 import static com.example.skydiving.WindUtils.*;
 
@@ -70,8 +68,6 @@ public class SkydivingHandler {
             player.sendMessage(Text.literal("§bWind updated: " + windToString(change.direction, change.speed)), false);
         });
     }
-
-
 
 
 }

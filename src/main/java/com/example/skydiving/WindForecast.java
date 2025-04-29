@@ -55,8 +55,8 @@ public class WindForecast {
         double newZ = latestWind.direction.x * sin + latestWind.direction.z * cos;
         Vec3d newDirection = new Vec3d(newX, 0, newZ).normalize(); // length becomes 1
 
-        // Speed delta ±0.002
-        double newSpeed = latestWind.speed + (random.nextDouble() * MAX_SPEED_DELTA - MAX_SPEED_DELTA*2);
+        double newSpeed = latestWind.speed + (random.nextBoolean() ? MAX_SPEED_DELTA : -MAX_SPEED_DELTA);
+
         newSpeed = clampSpeed(newSpeed);
 
         forecast.add(new WindChange(newDirection, newSpeed));

@@ -7,7 +7,6 @@ import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 
 public class SkydivingModClient implements ClientModInitializer {
@@ -39,7 +38,7 @@ public class SkydivingModClient implements ClientModInitializer {
 		);
 
 		ClientTickEvents.END_CLIENT_TICK.register(client -> {
-			if (mc.player != null && mc.player.isFallFlying()) {
+			if (mc.player != null && mc.player.isFallFlying() && !(mc.player.isTouchingWater() || mc.player.isSubmergedInWater())) {
 				applyWindToPlayer(mc.player);
 			}
 		});
