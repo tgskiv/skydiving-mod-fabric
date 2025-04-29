@@ -21,7 +21,6 @@ import static com.example.skydiving.WindUtils.*;
 public class SkydivingHandler {
 
     private static int ticksUntilWindChange = 0;
-    private static final Random random = new Random();
 
 
     private static final WindForecast windForecast = new WindForecast();
