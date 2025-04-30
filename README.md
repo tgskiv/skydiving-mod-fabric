@@ -19,6 +19,31 @@ Later, this mod was born as a simple toy to make Elytra flying a bit more fun.
 - **Realistic flight physics**: Headwind slows you, tailwind boosts, crosswind drifts.
 - **Disables wind when player is in water**.
 
+
+## 🧪 Upcoming Features
+
+Your help would be appreciated! 💖
+
+- **Altitude-Based Wind Influence**
+
+  Wind strength will vary depending on your altitude above the terrain — lower altitudes will have less wind effect.
+
+- **Biome-Aware Wind**
+
+  Different biomes will influence wind direction and intensity (e.g., deserts may have stronger gusts, forests more turbulence).
+
+- **Weather-Driven Dynamics**
+  
+  Rain, storms, and other weather conditions will dynamically alter wind behavior.
+
+- **Thermal Columns & Downwash**
+
+  Air currents will push the player up or down based on vertical airflows, simulating thermals and sink zones.
+
+- **Wind Sock Blocks 🏳**
+
+  Craftable visual indicators to show current wind direction and speed in-world.
+
 ## 🛠 Setup
 
 This mod requires:
