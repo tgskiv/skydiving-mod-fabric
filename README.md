@@ -44,6 +44,11 @@ Your help would be appreciated! 💖
 
   Craftable visual indicators to show current wind direction and speed in-world.
 
+- **Faster falling when twisting fast**
+
+  By default, with elytra, you can twist around the same place to be in the same place and descend slowly enough. In real skydiving, if you twist rapidly, you lose speed, thus losing handleability and falling dangerously fast.
+
+
 ## 🛠 Setup
 
 This mod requires:
