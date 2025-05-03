@@ -3,9 +3,9 @@
 	"id": "skydivingmod",
 	"version": "${version}",
 	"name": "Skydiving Mod",
-	"description": "This is an example description! Tell everyone what your mod is about!",
+	"description": "A Minecraft Fabric mod that adds realistic wind physics affecting only Elytra gliding.",
 	"authors": [
-		"https://github.com/tgskiv/"
+		"tgskiv@gmail.com"
 	],
 	"contact": {
 		"homepage": "https://github.com/tgskiv/",
