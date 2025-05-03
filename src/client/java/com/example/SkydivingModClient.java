@@ -1,11 +1,16 @@
 package com.example;
 
+import com.example.skydiving.model.WindsockModel;
 import com.example.skydiving.network.WindSyncPacket;
+import com.example.skydiving.registry.ModModelLayers;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
+import net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry;
+import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
+import com.example.skydiving.registry.ModBlockEntities;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec3d;
 
@@ -43,7 +48,23 @@ public class SkydivingModClient implements ClientModInitializer {
 			}
 		});
 
+
+		// Register the Block Entity Renderer
+		BlockEntityRendererRegistry.register(ModBlockEntities.WINDSOCK_BLOCK_ENTITY, WindsockRenderer::new);
+
+		// Register the Model Layer Definition
+		EntityModelLayerRegistry.registerModelLayer(ModModelLayers.WINDSOCK_LAYER, WindsockModel::getTexturedModelData);
+
+
 		System.out.println("Hello World from my first client Fabric mod!");
+	}
+
+	public static Vec3d getWindDirection() {
+		return windDirection;
+	}
+
+	public static double getWindSpeed() {
+		return windSpeed;
 	}
 
 	private void applyWindToPlayer(ClientPlayerEntity player) {

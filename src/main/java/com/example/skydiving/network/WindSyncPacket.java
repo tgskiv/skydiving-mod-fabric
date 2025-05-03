@@ -4,8 +4,10 @@ import net.minecraft.network.PacketByteBuf;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec3d;
 
+import static com.example.SkydivingMod.MOD_ID;
+
 public class WindSyncPacket {
-    public static final Identifier WIND_PACKET_ID = new Identifier("skydivingmod", "wind_sync");
+    public static final Identifier WIND_PACKET_ID = new Identifier(MOD_ID, "wind_sync");
 
     public final Vec3d windDirection;
     public final double windSpeed;
