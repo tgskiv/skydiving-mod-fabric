@@ -35,11 +35,20 @@ public class SkydivingHandler {
                             return 1;
                         })
                 )
+                .then(CommandManager.literal("again")
+                        .executes(context -> {
+                            ServerCommandSource source = context.getSource();
+                            windForecast.repopulateForecast();
+                            ticksUntilWindChange = 0;
+                            source.sendFeedback(() -> Text.literal("§aWind forecast regenerated."), false);
+                            return 1;
+                        })
+                )
         );
     }
 
     private static void onWorldTick(ServerWorld world) {
-        windForecast.generateForecast();
+        windForecast.populateForecast();
 
         if (ticksUntilWindChange <= 0) {
             applyNextWindChange(world);
