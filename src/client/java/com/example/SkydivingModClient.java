@@ -48,15 +48,8 @@ public class SkydivingModClient implements ClientModInitializer {
 	private void applyWindToPlayer(ClientPlayerEntity player) {
 		if (windSpeed <= 0) return;
 
-		Vec3d currentVelocity = player.getVelocity();
 		Vec3d push = windDirection.multiply(windSpeed);
 
-		Vec3d boosted = new Vec3d(
-				currentVelocity.x + push.x,
-				currentVelocity.y,
-				currentVelocity.z + push.z
-		);
-
-		player.setVelocity(boosted);
+		player.addVelocity(push);
 	}
 }
