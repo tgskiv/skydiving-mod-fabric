@@ -1,8 +1,9 @@
 package com.example;
 
 import com.example.skydiving.SkydivingHandler;
+import com.example.skydiving.network.WindSyncPayload;
 import net.fabricmc.api.ModInitializer;
-import com.example.skydiving.SkydivingHandler;
+import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,5 +22,6 @@ public class SkydivingMod implements ModInitializer {
 		LOGGER.info("Hello Fabric world (main)!");
 
 		SkydivingHandler.register();
+		PayloadTypeRegistry.playS2C().register(WindSyncPayload.PACKET_ID, WindSyncPayload.CODEC);
 	}
 }

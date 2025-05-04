@@ -10,8 +10,7 @@ import java.util.Random;
 
 import static com.example.skydiving.SkydivingConfig.*;
 import static com.example.skydiving.SkydivingConfig.MAX_SPEED_DELTA;
-import static com.example.skydiving.WindUtils.clampSpeed;
-import static com.example.skydiving.WindUtils.vectorToCompass;
+import static com.example.skydiving.WindUtils.*;
 
 public class WindForecast {
 
@@ -21,11 +20,17 @@ public class WindForecast {
     private final Queue<WindChange> forecast = new LinkedList<>();
 
 
-    public void generateForecast() {
+    public void populateForecast() {
         while (forecast.size() < SkydivingConfig.FORECAST_MIN_SIZE) {
             generateNextWindChange();
         }
     }
+
+    public void repopulateForecast() {
+        forecast.clear();
+        populateForecast();
+    }
+
 
     public WindChange poll() {
         return forecast.poll();
@@ -67,9 +72,9 @@ public class WindForecast {
         int minutesPerChange = 1;
         int index = 1;
         for (WindChange change : forecast.stream().limit(FORECAST_DISPLAY_COUNT).toList()) {
-            String text = String.format("%d min: %s at %.3f", index * minutesPerChange,
-                    vectorToCompass(change.direction.x, change.direction.z),
-                    change.speed);
+            String text = String.format("%d min: %s", index * minutesPerChange,
+                    windToString(change.direction, change.speed));
+
             player.sendMessage(Text.literal(text), false);
             index++;
         }

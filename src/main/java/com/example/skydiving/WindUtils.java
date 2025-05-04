@@ -25,6 +25,9 @@ public class WindUtils {
 
     public static String windToString(Vec3d direction, double speed) {
         String strDirection = vectorToCompass(direction.x, direction.z);
-        return String.format("Speed: %.2f | Direction: %s", speed, strDirection);
+
+        // let's say 0.02 is 10m/s
+        return String.format("Speed: %.2fm/s | Direction: %s", speed*500, strDirection);
     }
+
 }
