@@ -2,6 +2,7 @@ package com.example.skydiving;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.text.Text;
+import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3d;
 
 import java.util.LinkedList;
@@ -10,8 +11,7 @@ import java.util.Random;
 
 import static com.example.skydiving.SkydivingConfig.*;
 import static com.example.skydiving.SkydivingConfig.MAX_SPEED_DELTA;
-import static com.example.skydiving.WindUtils.clampSpeed;
-import static com.example.skydiving.WindUtils.vectorToCompass;
+import static com.example.skydiving.WindUtils.*;
 
 public class WindForecast {
 
@@ -67,9 +67,9 @@ public class WindForecast {
         int minutesPerChange = 1;
         int index = 1;
         for (WindChange change : forecast.stream().limit(FORECAST_DISPLAY_COUNT).toList()) {
-            String text = String.format("%d min: %s at %.3f", index * minutesPerChange,
-                    vectorToCompass(change.direction.x, change.direction.z),
-                    change.speed);
+            String text = String.format("%d min: %s", index * minutesPerChange,
+                    windToString(change.direction, change.speed));
+
             player.sendMessage(Text.literal(text), false);
             index++;
         }
