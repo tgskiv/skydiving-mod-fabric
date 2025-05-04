@@ -1,6 +1,5 @@
 package com.example.skydiving;
 
-import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3d;
 
 public class WindChange {

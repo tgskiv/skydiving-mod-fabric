@@ -28,12 +28,12 @@ public class SkydivingModClient implements ClientModInitializer {
 
 		ClientPlayNetworking.registerGlobalReceiver(
 				WindSyncPayload.PACKET_ID,
-				(payload, context) -> {
+				(payload, context) ->
 					context.client().execute(() -> {
 						windDirection = payload.direction();
 						windSpeed = payload.speed();
-					});
-				}
+					})
+
 		);
 
 		ClientTickEvents.END_CLIENT_TICK.register(client -> {

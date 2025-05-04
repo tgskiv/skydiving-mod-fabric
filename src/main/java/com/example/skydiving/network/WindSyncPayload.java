@@ -5,7 +5,6 @@ import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.network.packet.CustomPayload;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3d;
 
 public record WindSyncPayload(Vec3d direction, double speed) implements CustomPayload {

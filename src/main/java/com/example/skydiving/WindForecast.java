@@ -2,7 +2,6 @@ package com.example.skydiving;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.text.Text;
-import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3d;
 
 import java.util.LinkedList;
@@ -21,11 +20,17 @@ public class WindForecast {
     private final Queue<WindChange> forecast = new LinkedList<>();
 
 
-    public void generateForecast() {
+    public void populateForecast() {
         while (forecast.size() < SkydivingConfig.FORECAST_MIN_SIZE) {
             generateNextWindChange();
         }
     }
+
+    public void repopulateForecast() {
+        forecast.clear();
+        populateForecast();
+    }
+
 
     public WindChange poll() {
         return forecast.poll();
