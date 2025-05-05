@@ -7,6 +7,7 @@ import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
+import net.minecraft.client.render.block.entity.BlockEntityRendererFactories;
 import net.minecraft.util.math.Vec3d;
 
 public class SkydivingModClient implements ClientModInitializer {
@@ -53,6 +54,7 @@ public class SkydivingModClient implements ClientModInitializer {
 //		// Register the Model Layer Definition
 //		EntityModelLayerRegistry.registerModelLayer(ModModelLayers.WINDSOCK_LAYER, WindsockModel::getTexturedModelData);
 
+//		BlockEntityRendererFactories.register(DEMO_BLOCK_ENTITY);
 
 		System.out.println("Hello World from my first client Fabric mod!");
 	}

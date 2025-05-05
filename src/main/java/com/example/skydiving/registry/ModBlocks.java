@@ -3,7 +3,6 @@ package com.example.skydiving.registry;
 
 import com.example.SkydivingMod;
 import com.example.skydiving.block.WindsockBlock;
-import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 
@@ -33,13 +32,13 @@ public class ModBlocks {
     }
 
     private static void registerBlockItem(String name, Block block) {
-//        return Registry.register(Registries.ITEM, new Identifier(SkydivingMod.MOD_ID, name),
-//                new BlockItem(block, new FabricItemSettings()));
+        Registry.register(Registries.ITEM, Identifier.of(SkydivingMod.MOD_ID, name),
+                new BlockItem(block, new Item.Settings()));
     }
 
     // Called from your main mod initializer
     public static void registerModBlocks() {
         SkydivingMod.LOGGER.info("Registering ModBlocks for " + SkydivingMod.MOD_ID);
-        // The static initializers above handle the registration
+
     }
 }

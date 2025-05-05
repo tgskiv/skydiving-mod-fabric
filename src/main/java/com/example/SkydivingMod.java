@@ -2,6 +2,8 @@ package com.example;
 
 import com.example.skydiving.SkydivingHandler;
 import com.example.skydiving.network.WindSyncPayload;
+import com.example.skydiving.registry.ModBlockEntities;
+import com.example.skydiving.registry.ModBlocks;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import org.slf4j.Logger;
@@ -25,5 +27,9 @@ public class SkydivingMod implements ModInitializer {
 
 		SkydivingHandler.register();
 		PayloadTypeRegistry.playS2C().register(WindSyncPayload.PACKET_ID, WindSyncPayload.CODEC);
+
+
+		ModBlocks.registerModBlocks();
+		ModBlockEntities.registerBlockEntities();
 	}
 }
