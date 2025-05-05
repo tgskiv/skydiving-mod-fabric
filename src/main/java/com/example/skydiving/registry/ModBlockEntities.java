@@ -17,7 +17,7 @@ public class ModBlockEntities {
     public static void registerBlockEntities() {
         WINDSOCK_BLOCK_ENTITY = Registry.register(
                 Registries.BLOCK_ENTITY_TYPE,
-                new Identifier(SkydivingMod.MOD_ID, "windsock_block_entity"),
+                Identifier.of(SkydivingMod.MOD_ID, "windsock_block_entity"),
                 FabricBlockEntityTypeBuilder.create(WindsockBlockEntity::new, ModBlocks.WINDSOCK).build(null)
         );
 

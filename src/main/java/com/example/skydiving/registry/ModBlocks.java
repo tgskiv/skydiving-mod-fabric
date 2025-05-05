@@ -3,8 +3,8 @@ package com.example.skydiving.registry;
 
 import com.example.SkydivingMod;
 import com.example.skydiving.block.WindsockBlock;
-import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 
 import net.minecraft.item.BlockItem;
@@ -18,7 +18,7 @@ public class ModBlocks {
 
     // Create and register the Windsock block instance
     public static final Block WINDSOCK = registerBlock("windsock",
-            new WindsockBlock(FabricBlockSettings
+            new WindsockBlock(AbstractBlock.Settings
                     .create()
                     .solid()
                     .strength(2.0f) // Adjust hardness
@@ -29,12 +29,12 @@ public class ModBlocks {
     // Helper method to register block and associated item
     private static Block registerBlock(String name, Block block) {
         registerBlockItem(name, block);
-        return Registry.register(Registries.BLOCK, new Identifier(SkydivingMod.MOD_ID, name), block);
+        return Registry.register(Registries.BLOCK, Identifier.of(SkydivingMod.MOD_ID, name), block);
     }
 
-    private static Item registerBlockItem(String name, Block block) {
-        return Registry.register(Registries.ITEM, new Identifier(SkydivingMod.MOD_ID, name),
-                new BlockItem(block, new FabricItemSettings()));
+    private static void registerBlockItem(String name, Block block) {
+//        return Registry.register(Registries.ITEM, new Identifier(SkydivingMod.MOD_ID, name),
+//                new BlockItem(block, new FabricItemSettings()));
     }
 
     // Called from your main mod initializer

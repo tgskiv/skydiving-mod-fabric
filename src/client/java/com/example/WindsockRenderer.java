@@ -2,14 +2,10 @@ package com.example; // Adjust package to match yours
 
 import com.example.skydiving.blockentity.WindsockBlockEntity;
 import com.example.skydiving.model.WindsockModel;
-import com.example.skydiving.registry.ModModelLayers;
-import net.minecraft.client.render.RenderLayer;
-import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.block.entity.BlockEntityRenderer;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactory;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RotationAxis;
 import net.minecraft.util.math.Vec3d;
@@ -17,11 +13,12 @@ import net.minecraft.util.math.Vec3d;
 
 public class WindsockRenderer implements BlockEntityRenderer<WindsockBlockEntity> {
 
-    private final WindsockModel model;
+    private WindsockModel model;
 
     public WindsockRenderer(BlockEntityRendererFactory.Context ctx) {
         // Get the model instance from the registered layer
-        this.model = new WindsockModel(ctx.getLayerModelPart(ModModelLayers.WINDSOCK_LAYER));
+
+//        this.model = new WindsockModel(ctx.getLayerModelPart(ModModelLayers.WINDSOCK_LAYER));
     }
 
     @Override
@@ -57,8 +54,8 @@ public class WindsockRenderer implements BlockEntityRenderer<WindsockBlockEntity
 
         // --- Render Static Base (Stick) ---
         // Get the vertex consumer for the stick texture
-        VertexConsumer stickConsumer = vertexConsumers.getBuffer(RenderLayer.getEntityCutout(WindsockModel.STICK_TEXTURE)); // Use cutout if texture has transparency
-        model.renderBase(matrices, stickConsumer, light, overlay, 1.0f, 1.0f, 1.0f, 1.0f);
+//        VertexConsumer stickConsumer = vertexConsumers.getBuffer(RenderLayer.getEntityCutout(WindsockModel.STICK_TEXTURE)); // Use cutout if texture has transparency
+//        model.renderBase(matrices, stickConsumer, light, overlay, 1.0f, 1.0f, 1.0f, 1.0f);
 
 
         // --- Render Rotating Cone ---
@@ -70,8 +67,9 @@ public class WindsockRenderer implements BlockEntityRenderer<WindsockBlockEntity
         // Get vertex consumers for the cone textures
         // You might need separate consumers if red/white parts use different textures
         // Or, if your model uses one texture sheet, adjust UVs in the model definition.
-        VertexConsumer redConeConsumer = vertexConsumers.getBuffer(RenderLayer.getEntityCutout(WindsockModel.RED_CONE_TEXTURE));
-        VertexConsumer whiteConeConsumer = vertexConsumers.getBuffer(RenderLayer.getEntityCutout(WindsockModel.WHITE_CONE_TEXTURE));
+
+//        VertexConsumer redConeConsumer = vertexConsumers.getBuffer(RenderLayer.getEntityCutout(WindsockModel.RED_CONE_TEXTURE));
+//        VertexConsumer whiteConeConsumer = vertexConsumers.getBuffer(RenderLayer.getEntityCutout(WindsockModel.WHITE_CONE_TEXTURE));
 
         // Render the cone - THIS ASSUMES YOUR MODEL RENDERS CORRECTLY WITH MULTIPLE TEXTURES
         // If your WindsockModel's `renderCone` method handles switching textures internally,
@@ -80,7 +78,10 @@ public class WindsockRenderer implements BlockEntityRenderer<WindsockBlockEntity
         // render specific parts (e.g., model.renderRedPart(...), model.renderWhitePart(...))
         // For simplicity now, we pass one consumer. Adapt if needed.
         // We'll use the red texture consumer here, assuming the model handles UVs for both.
-        model.renderCone(matrices, redConeConsumer, light, overlay, 1.0f, 1.0f, 1.0f, 1.0f);
+
+//        model.renderCone(matrices, redConeConsumer, light, overlay, 1.0f, 1.0f, 1.0f, 1.0f);
+
+
         // If you need separate consumers:
         // model.renderRedParts(matrices, redConeConsumer, light, overlay, 1.0f, 1.0f, 1.0f, 1.0f);
         // model.renderWhiteParts(matrices, whiteConeConsumer, light, overlay, 1.0f, 1.0f, 1.0f, 1.0f);
