@@ -85,6 +85,15 @@ Place the .jar file in your Minecraft mods/ folder (client and server).
 * `SkydivingConfig` – mod constants
 * `WindUtils` – helper functions (compass, clamping, etc.)
 
+## Tutorials used
+
+https://wiki.fabricmc.net/tutorial:blocks
+https://wiki.fabricmc.net/tutorial:blockentity
+https://wiki.fabricmc.net/tutorial:blockentityrenderers
+https://wiki.fabricmc.net/tutorial:custom_model
+https://www.youtube.com/watch?v=qXkduRD61M4
+https://www.youtube.com/watch?v=bOlbBOLfnfk
+
 ## 🔗 License
 MIT – use freely, contribute freely.
 

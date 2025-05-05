@@ -1,8 +1,5 @@
 {
   "variants": {
-    "facing=north": { "model": "skydivingmod:block/windsock", "y": 180 },
-    "facing=east":  { "model": "skydivingmod:block/windsock", "y": 270 },
-    "facing=south": { "model": "skydivingmod:block/windsock", "y": 0 },
-    "facing=west":  { "model": "skydivingmod:block/windsock", "y": 90 }
+    "": { "model": "skydivingmod:block/windsock", "y": 0 }
   }
 }

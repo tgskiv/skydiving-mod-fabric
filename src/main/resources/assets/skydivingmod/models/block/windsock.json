@@ -2,10 +2,10 @@
 	"credit": "Made with Blockbench",
 	"texture_size": [32, 32],
 	"textures": {
-		"0": "red_cone_texture",
-		"1": "white_cone_texture",
-		"2": "brown_stick_texture",
-		"particle": "white_cone_texture"
+		"0": "skydivingmod:block/red_cone_texture",
+		"1": "skydivingmod:block/white_cone_texture",
+		"2": "skydivingmod:block/brown_stick_texture",
+		"particle": "skydivingmod:block/white_cone_texture"
 	},
 	"elements": [
 		{
