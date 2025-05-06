@@ -1,7 +1,6 @@
 package com.example.skydiving.block;
 
 import com.example.skydiving.blockentity.WindsockBlockEntity;
-import com.example.skydiving.registry.ModBlockEntities;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
@@ -27,7 +26,6 @@ public class WindsockBlock extends BlockWithEntity implements BlockEntityProvide
 
     @Override
     public BlockRenderType getRenderType(BlockState state) {
-        // Important: We use a BlockEntityRenderer, so the block itself renders as invisible.
         return BlockRenderType.MODEL;
     }
 

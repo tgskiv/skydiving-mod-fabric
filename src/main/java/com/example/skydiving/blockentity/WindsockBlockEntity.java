@@ -4,6 +4,7 @@ import com.example.skydiving.registry.ModBlockEntities;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
 
 public class WindsockBlockEntity extends BlockEntity {
 
@@ -25,4 +26,16 @@ public class WindsockBlockEntity extends BlockEntity {
         }
     }
     */
+
+    private Vec3d windDirection = Vec3d.ZERO;
+
+
+    public void setWindDirection(Vec3d windDirection) {
+        this.windDirection = windDirection;
+        markDirty(); // Important to mark the entity as dirty for syncing (if needed)
+    }
+
+    public Vec3d getWindDirection() {
+        return this.windDirection;
+    }
 }

@@ -32,7 +32,9 @@ public class ModBlocks {
     }
 
     private static void registerBlockItem(String name, Block block) {
-        Registry.register(Registries.ITEM, Identifier.of(SkydivingMod.MOD_ID, name),
+        Registry.register(
+                Registries.ITEM,
+                Identifier.of(SkydivingMod.MOD_ID, name),
                 new BlockItem(block, new Item.Settings()));
     }
 

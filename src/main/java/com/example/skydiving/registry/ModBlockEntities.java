@@ -3,7 +3,6 @@ package com.example.skydiving.registry;
 
 import com.example.SkydivingMod; // Your main mod class
 import com.example.skydiving.blockentity.WindsockBlockEntity;
-import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
