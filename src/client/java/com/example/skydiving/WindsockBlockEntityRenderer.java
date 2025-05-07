@@ -31,13 +31,13 @@ public class WindsockBlockEntityRenderer implements BlockEntityRenderer<Windsock
             // We want the windsock to point in the direction the wind is coming *from*.
             // So, we'll use the negative of the wind direction.
             double angleRadians = Math.atan2(-windDir.x, -windDir.z);
-            float angleDegrees = (float) Math.toDegrees(angleRadians);
+            float angleDegrees = (float) Math.toDegrees(angleRadians)-90;
 
             matrices.push();
             // Translate to the center of the block (adjust if your model's pivot is different)
             matrices.translate(0.5, 0.5, 0.5);
             // Rotate around the Y-axis
-            matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(-angleDegrees));
+            matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(angleDegrees));
             // Translate back so the rotation is around the block's center
             matrices.translate(-0.5, -0.5, -0.5);
 

@@ -3,6 +3,7 @@ package com.example;
 
 import com.example.skydiving.ModModelLayers;
 import com.example.skydiving.WindsockModel;
+import com.example.skydiving.blockentity.WindsockBlockEntity;
 import com.example.skydiving.network.WindSyncPayload;
 import com.example.skydiving.registry.ModBlockEntities;
 import net.fabricmc.api.ClientModInitializer;
@@ -56,7 +57,23 @@ public class SkydivingModClient implements ClientModInitializer {
 		});
 
 
-		BlockEntityRendererFactories.register(ModBlockEntities.WINDSOCK_BLOCK_ENTITY, WindsockBlockEntityRenderer::new);
+		BlockEntityRendererFactories.register(
+				ModBlockEntities.WINDSOCK_BLOCK_ENTITY,
+//				WindsockBlockEntityRenderer::new
+				// This all needed to render cone from a far, as by default
+				// it renders 64 blocks far max
+				ctx -> new WindsockBlockEntityRenderer(ctx) {
+					@Override
+					public boolean rendersOutsideBoundingBox(WindsockBlockEntity blockEntity) {
+						return true;
+					}
+
+					@Override
+					public int getRenderDistance() {
+						return 256;
+					}
+				}
+		);
 		EntityModelLayerRegistry.registerModelLayer(ModModelLayers.WINDSOCK_LAYER, WindsockModel::getTexturedModelData);
 
 		System.out.println("Hello World from my first client Fabric mod!");
