@@ -18,6 +18,7 @@ Later, this mod was born as a simple toy to make Elytra flying a bit more fun.
 - **Command `/wind forecast`**: Shows next 5 wind changes in readable format (e.g., `2 min: SE at 0.015`).
 - **Realistic flight physics**: Headwind slows you, tailwind boosts, crosswind drifts.
 - **Disables wind when player is in water**.
+- **Wind cone**: You must use command /give @p skydiving (I don't remember exactly)
 
 
 ## 🧪 Upcoming Features
@@ -40,7 +41,7 @@ Your help would be appreciated! 💖
 
   Air currents will push the player up or down based on vertical airflows, simulating thermals and sink zones.
 
-- **Wind Sock Blocks 🏳**
+- **Crafting recipe for Wind Sock Block 🏳**
 
   Craftable visual indicators to show current wind direction and speed in-world.
 
