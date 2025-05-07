@@ -33,7 +33,7 @@ public class WindsockModel extends Model {
         ModelData modelData = new ModelData();
         ModelPartData root = modelData.getRoot();
 
-        int higher = 16;
+        int higher = 8;
 
         root.addChild("stick",
                 ModelPartBuilder
