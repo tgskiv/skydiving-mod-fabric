@@ -1,0 +1,5 @@
+{
+  "variants": {
+    "": { "model": "skydivingmod:block/windsock", "y": 0 }
+  }
+}
