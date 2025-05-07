@@ -1,11 +1,14 @@
 package com.example;
 
 
+import com.example.skydiving.ModModelLayers;
+import com.example.skydiving.WindsockModel;
 import com.example.skydiving.network.WindSyncPayload;
 import com.example.skydiving.registry.ModBlockEntities;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
+import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactories;
@@ -51,7 +54,7 @@ public class SkydivingModClient implements ClientModInitializer {
 
 
 		BlockEntityRendererFactories.register(ModBlockEntities.WINDSOCK_BLOCK_ENTITY, WindsockBlockEntityRenderer::new);
-
+		EntityModelLayerRegistry.registerModelLayer(ModModelLayers.WINDSOCK_LAYER, WindsockModel::getTexturedModelData);
 
 		System.out.println("Hello World from my first client Fabric mod!");
 	}

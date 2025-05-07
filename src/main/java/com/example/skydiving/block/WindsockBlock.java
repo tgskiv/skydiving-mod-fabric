@@ -26,7 +26,7 @@ public class WindsockBlock extends BlockWithEntity implements BlockEntityProvide
 
     @Override
     public BlockRenderType getRenderType(BlockState state) {
-        return BlockRenderType.MODEL;
+        return BlockRenderType.INVISIBLE;
     }
 
     @Override
