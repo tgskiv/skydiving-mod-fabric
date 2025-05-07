@@ -27,15 +27,4 @@ public class WindsockBlockEntity extends BlockEntity {
     }
     */
 
-    private Vec3d windDirection = Vec3d.ZERO;
-
-
-    public void setWindDirection(Vec3d windDirection) {
-        this.windDirection = windDirection;
-        markDirty(); // Important to mark the entity as dirty for syncing (if needed)
-    }
-
-    public Vec3d getWindDirection() {
-        return this.windDirection;
-    }
 }

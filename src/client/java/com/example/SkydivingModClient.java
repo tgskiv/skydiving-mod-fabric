@@ -27,6 +27,9 @@ public class SkydivingModClient implements ClientModInitializer {
 	public static Vec3d getWindDirection() {
 		return windDirection;
 	}
+	public static double getWindSpeed() {
+		return windSpeed;
+	}
 
 	@Override
 	public void onInitializeClient() {

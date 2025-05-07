@@ -14,7 +14,7 @@ public class WindsockBlock extends BlockWithEntity implements BlockEntityProvide
 
     // Define the shape of the block (optional, but good for collision)
     // Adjust these values based on your model's dimensions
-    private static final VoxelShape SHAPE = VoxelShapes.cuboid(0.3, 0.0, 0.3, 0.7, 1.5, 0.7); // Example shape
+    private static final VoxelShape SHAPE = VoxelShapes.cuboid(0.3, 0.0, 0.3, 0.7, 2, 0.7); // Example shape
 
     public WindsockBlock(Settings settings) {
         super(settings);

@@ -3,6 +3,7 @@ package com.example.skydiving;
 import com.example.SkydivingModClient;
 import com.example.skydiving.blockentity.WindsockBlockEntity;
 import net.minecraft.client.render.RenderLayer;
+import net.minecraft.client.render.RenderPhase;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.block.entity.BlockEntityRenderer;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactory;
@@ -22,6 +23,8 @@ public class WindsockBlockEntityRenderer implements BlockEntityRenderer<Windsock
     @Override
     public void render(WindsockBlockEntity entity, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
         Vec3d windDir = SkydivingModClient.getWindDirection();
+        double windSpeed = SkydivingModClient.getWindSpeed();
+
 
         if (!windDir.equals(Vec3d.ZERO)) {
             // Calculate the angle of rotation based on the wind direction.
@@ -38,18 +41,69 @@ public class WindsockBlockEntityRenderer implements BlockEntityRenderer<Windsock
             // Translate back so the rotation is around the block's center
             matrices.translate(-0.5, -0.5, -0.5);
 
+//            model.render(matrices, vertexConsumers.getBuffer(RenderLayer.getEntityCutout(WindsockModel.STICK_TEXTURE)), light, overlay, Colors.RED);
 
-            model.render(matrices, vertexConsumers.getBuffer(RenderLayer.getEntityCutout(WindsockModel.STICK_TEXTURE)), light, overlay, Colors.RED);
+
+            renderCones(windSpeed, matrices, vertexConsumers, light, overlay);
 
             matrices.pop();
         } else {
             // Render the windsock in its default orientation if there's no wind
             matrices.push();
-            model.render(matrices, vertexConsumers.getBuffer(RenderLayer.getEntityCutout(WindsockModel.STICK_TEXTURE)), light, overlay, Colors.RED);
+//            model.render(matrices, vertexConsumers.getBuffer(RenderLayer.getEntityCutout(WindsockModel.STICK_TEXTURE)), light, overlay, Colors.RED);
+            renderCones(windSpeed, matrices, vertexConsumers, light, overlay);
+
             matrices.pop();
         }
     }
 
+    protected void renderCones(double windSpeed, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
+        int COLOR_CONE_RED = 0xfe0909;
+        int COLOR_CONE_WHITE = 0xeee0e0;
+
+        model.stick.render(
+                matrices,
+                vertexConsumers.getBuffer(RenderLayer.getEntityCutout(WindsockModel.STICK_TEXTURE)),
+                light, overlay,
+                Colors.GRAY
+        );
+
+
+        model.cone1.render(
+                matrices,
+                vertexConsumers.getBuffer(RenderLayer.getEntityCutout(WindsockModel.RED_TEXTURE)),
+                light, overlay,
+                COLOR_CONE_RED
+        );
+
+        if (windSpeed>=0.01) {
+            model.cone2.render(
+                    matrices,
+                    vertexConsumers.getBuffer(RenderLayer.getEntityCutout(WindsockModel.WHITE_TEXTURE)),
+                    light, overlay,
+                    COLOR_CONE_WHITE
+            );
+        }
+
+        if (windSpeed>=0.015) {
+            model.cone3.render(
+                    matrices,
+                    vertexConsumers.getBuffer(RenderLayer.getEntityCutout(WindsockModel.RED_TEXTURE)),
+                    light, overlay,
+                    COLOR_CONE_RED
+            );
+        }
+
+        if (windSpeed>=0.02) {
+            model.cone4.render(
+                    matrices,
+                    vertexConsumers.getBuffer(RenderLayer.getEntityCutout(WindsockModel.WHITE_TEXTURE)),
+                    light, overlay,
+                    COLOR_CONE_WHITE
+            );
+        }
+
+    }
 
     @Override
     public boolean rendersOutsideBoundingBox(WindsockBlockEntity blockEntity) {
