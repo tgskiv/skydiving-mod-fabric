@@ -33,11 +33,13 @@ public class WindsockModel extends Model {
         ModelData modelData = new ModelData();
         ModelPartData root = modelData.getRoot();
 
+        int higher = 16;
+
         root.addChild("stick",
                 ModelPartBuilder
                         .create()
                         .uv(0, 0)
-                        .cuboid(0, 0, 0, 1, 32, 1),
+                        .cuboid(0, 0, 0, 1, 32+higher, 1),
                 ModelTransform.pivot(8, 0, 8)
         );
 
@@ -46,7 +48,7 @@ public class WindsockModel extends Model {
                         .create()
                         .uv(0, 0)
                         .cuboid(0, 0, 0, 6, 9, 9),
-                ModelTransform.pivot(1, 23, 4)
+                ModelTransform.pivot(1, 23+higher, 4)
         );
 
         ModelPartData cone2 = root.addChild("cone2",
@@ -54,7 +56,7 @@ public class WindsockModel extends Model {
                         .create()
                         .uv(0, 0)
                         .cuboid(0, 0, 0, 9, 7, 7),
-                ModelTransform.pivot(-4, 24, 5)
+                ModelTransform.pivot(-4, 24+higher, 5)
         );
 
         ModelPartData cone3 = root.addChild("cone3",
@@ -62,7 +64,7 @@ public class WindsockModel extends Model {
                         .create()
                         .uv(0, 0)
                         .cuboid(0, 0, 0, 10, 5, 5),
-                ModelTransform.pivot(-9, 25, 6)
+                ModelTransform.pivot(-9, 25+higher, 6)
         );
 
         ModelPartData cone4 = root.addChild("cone4",
@@ -70,7 +72,7 @@ public class WindsockModel extends Model {
                         .create()
                         .uv(0, 0)
                         .cuboid(0, 0, 0, 10, 3, 3),
-                ModelTransform.pivot(-14, 26, 7)
+                ModelTransform.pivot(-14, 26+higher, 7)
         );
 
         return TexturedModelData.of(modelData, 32, 32);

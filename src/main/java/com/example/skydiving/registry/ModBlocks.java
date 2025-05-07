@@ -23,19 +23,30 @@ public class ModBlocks {
                     .strength(2.0f) // Adjust hardness
                     .sounds(BlockSoundGroup.WOOD) // Adjust sounds
                     .nonOpaque() // Important for BERs so light passes through the model correctly
-            ));
+    ));
+
+
+    public static final Item WINDSOCK_ITEM = registerBlockItem("windsock",
+            new BlockItem(WINDSOCK, new Item.Settings())
+    );
+
+
 
     // Helper method to register block and associated item
     private static Block registerBlock(String name, Block block) {
-        registerBlockItem(name, block);
-        return Registry.register(Registries.BLOCK, Identifier.of(SkydivingMod.MOD_ID, name), block);
+        return Registry.register(
+                Registries.BLOCK,
+                Identifier.of(SkydivingMod.MOD_ID, name),
+                block
+        );
     }
 
-    private static void registerBlockItem(String name, Block block) {
-        Registry.register(
+    private static Item registerBlockItem(String name, Item item) {
+        return Registry.register(
                 Registries.ITEM,
                 Identifier.of(SkydivingMod.MOD_ID, name),
-                new BlockItem(block, new Item.Settings()));
+                item
+        );
     }
 
     // Called from your main mod initializer
