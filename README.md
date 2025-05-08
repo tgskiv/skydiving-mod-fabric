@@ -33,11 +33,13 @@ Later, this mod was born as a simple toy to make Elytra flying a bit more fun.
 
 Your help would be appreciated! 💖
 
-1. **Faster falling when twisting fast**
+1. **Settings**. It would be good for testing purposes to change the mod settings. 
+
+2. **Faster falling when twisting fast**
 
    By default, with elytra, you can twist around the same place and continue descending safely enough. In real skydiving, if you twist rapidly, you lose speed, thus losing handleability and falling dangerously fast.
 
-2. **Thermal Columns & Downwash, Biome-Aware Wind**
+3. **Thermal Columns & Downwash, Biome-Aware Wind**
 
    Different biomes will influence wind direction and intensity (e.g., deserts may have stronger gusts, forests more turbulence).
    Air currents will push the player up or down based on vertical airflows, simulating thermals and sink zones.
@@ -54,7 +56,7 @@ Your help would be appreciated! 💖
    
    Effects are most strong when 10-100 blocks above the ground and gradually lose strength above and beyond this range 
 
-3. **Weather-Driven Dynamics**
+4. **Weather-Driven Dynamics**
 
   Rain, storms, and other weather conditions will dynamically alter wind behavior.
 
