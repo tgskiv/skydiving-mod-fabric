@@ -25,30 +25,42 @@ Later, this mod was born as a simple toy to make Elytra flying a bit more fun.
 
 Your help would be appreciated! 💖
 
-- **Altitude-Based Wind Influence**
+1. **Crafting recipe for Wind Sock Block 🏳**
 
-  Wind strength will vary depending on your altitude above the terrain — lower altitudes will have less wind effect.
+   Craftable visual indicators to show current wind direction and speed in-world.
 
-- **Biome-Aware Wind**
+2. **Faster falling when twisting fast**
 
-  Different biomes will influence wind direction and intensity (e.g., deserts may have stronger gusts, forests more turbulence).
+   By default, with elytra, you can twist around the same place and continue descending safely enough. In real skydiving, if you twist rapidly, you lose speed, thus losing handleability and falling dangerously fast.
+
+3. **Low altitude wind influence**
+
+   Wind strength will vary depending on your altitude above the terrain — lower altitudes will have less wind effect.
+   - 0 blocks - 30% effect
+   - 5 blocks - 50% effect
+   - 10 blocks - 100% effect
+
+4. **Thermal Columns & Downwash, Biome-Aware Wind**
+
+   Different biomes will influence wind direction and intensity (e.g., deserts may have stronger gusts, forests more turbulence).
+   Air currents will push the player up or down based on vertical airflows, simulating thermals and sink zones.
+
+   Raise when day:
+   - Bare soil, dry grasslands, or any type of stone blocks slopes heat up quickly under the sun.
+
+   Raise always:
+   - Players are above slopes or ridges which facing the wind 
+   
+   Falling always:
+   - Players are above rivers, lakes
+   - Players are above slopes or ridges against the wind
+   
+   Effects are most strong when 10-100 blocks above the ground and gradually lose strength above and beyond this range 
+  
 
 - **Weather-Driven Dynamics**
-  
+
   Rain, storms, and other weather conditions will dynamically alter wind behavior.
-
-- **Thermal Columns & Downwash**
-
-  Air currents will push the player up or down based on vertical airflows, simulating thermals and sink zones.
-
-- **Crafting recipe for Wind Sock Block 🏳**
-
-  Craftable visual indicators to show current wind direction and speed in-world.
-
-- **Faster falling when twisting fast**
-
-  By default, with elytra, you can twist around the same place to be in the same place and descend slowly enough. In real skydiving, if you twist rapidly, you lose speed, thus losing handleability and falling dangerously fast.
-
 
 ## 🛠 Setup
 
