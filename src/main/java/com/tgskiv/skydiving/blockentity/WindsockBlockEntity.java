@@ -1,10 +1,9 @@
-package com.example.skydiving.blockentity;
+package com.tgskiv.skydiving.blockentity;
 
-import com.example.skydiving.registry.ModBlockEntities;
+import com.tgskiv.skydiving.registry.ModBlockEntities;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Vec3d;
 
 public class WindsockBlockEntity extends BlockEntity {
 

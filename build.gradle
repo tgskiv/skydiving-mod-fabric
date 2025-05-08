@@ -3,8 +3,18 @@ plugins {
 	id 'maven-publish'
 }
 
-version = project.mod_version
+//version = project.mod_version
 group = project.maven_group
+
+def props = new Properties()
+file("version.properties").withInputStream { props.load(it) }
+
+def baseVersion = project.mod_version // comes from gradle.properties
+def patch = props.getProperty("patch").toInteger() + 1
+def fullVersion = "${baseVersion}.${patch}"
+
+version = fullVersion
+
 
 base {
 	archivesName = project.archives_base_name
@@ -90,11 +100,33 @@ publishing {
 tasks.register('buildAndCopy') {
 	dependsOn build
 	doLast {
-		copy {
-			from "$buildDir/libs"
-			include 'skydivingmod-*.jar'
-			exclude 'skydivingmod-*-sources.jar'
-			into 'c:/Games/minecraft-1.21.1/mods'
+		def modsDir = file('c:/Games/minecraft-1.21.1/mods')
+		def libsDir = file("$buildDir/libs")
+
+		// Clean up old mod jars
+		modsDir.listFiles(new FilenameFilter() {
+			boolean accept(File dir, String name) {
+				return name.startsWith('skydivingmod') && name.endsWith('.jar') && !name.contains('-sources')
+			}
+		})?.each { it.delete() }
+
+		// Only copy the newly built JAR (matching the full version)
+		def jarName = "skydivingmod-${project.version}.jar"
+		def builtJar = new File(libsDir, jarName)
+
+		if (builtJar.exists()) {
+			copy {
+				from libsDir
+				include jarName
+				into modsDir
+			}
+		} else {
+			println "Expected JAR not found: $jarName"
 		}
 	}
+}
+
+gradle.buildFinished {
+	props.setProperty("patch", fullVersion.tokenize('.').last()) // store only the patch number
+	file("version.properties").withOutputStream { props.store(it, null) }
 }

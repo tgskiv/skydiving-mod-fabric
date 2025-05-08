@@ -1,6 +1,6 @@
-package com.example.skydiving.block;
+package com.tgskiv.skydiving.block;
 
-import com.example.skydiving.blockentity.WindsockBlockEntity;
+import com.tgskiv.skydiving.blockentity.WindsockBlockEntity;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;

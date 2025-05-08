@@ -1,4 +1,4 @@
-package com.example.skydiving;
+package com.tgskiv.skydiving;
 
 public class SkydivingConfig {
     public static final int TICKS_PER_WIND_CHANGE = 1200;

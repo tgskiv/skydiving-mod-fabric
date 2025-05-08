@@ -1,11 +1,12 @@
-package com.example;
+package com.tgskiv;
 
 
-import com.example.skydiving.ModModelLayers;
-import com.example.skydiving.WindsockModel;
-import com.example.skydiving.blockentity.WindsockBlockEntity;
-import com.example.skydiving.network.WindSyncPayload;
-import com.example.skydiving.registry.ModBlockEntities;
+import com.tgskiv.skydiving.blocks.ModModelLayers;
+import com.tgskiv.skydiving.blocks.WindsockModel;
+import com.tgskiv.skydiving.blockentity.WindsockBlockEntity;
+import com.tgskiv.skydiving.flight.FlightUtils;
+import com.tgskiv.skydiving.network.WindSyncPayload;
+import com.tgskiv.skydiving.registry.ModBlockEntities;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
@@ -14,7 +15,8 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactories;
 import net.minecraft.util.math.Vec3d;
-import com.example.skydiving.WindsockBlockEntityRenderer;
+import com.tgskiv.skydiving.blocks.WindsockBlockEntityRenderer;
+
 
 public class SkydivingModClient implements ClientModInitializer {
 
@@ -34,11 +36,11 @@ public class SkydivingModClient implements ClientModInitializer {
 
 	@Override
 	public void onInitializeClient() {
-		ClientTickEvents.END_CLIENT_TICK.register(client -> {
-			if (mc.player != null && mc.player.isFallFlying()) {
-				applyWindToPlayer(mc.player);
-			}
-		});
+//		ClientTickEvents.END_CLIENT_TICK.register(client -> {
+//			if (mc.player != null && mc.player.isFallFlying()) {
+//				FlightUtils.applyWindToPlayer(mc.player, windDirection, windSpeed);
+//			}
+//		});
 
 		ClientPlayNetworking.registerGlobalReceiver(
 				WindSyncPayload.PACKET_ID,
@@ -52,7 +54,7 @@ public class SkydivingModClient implements ClientModInitializer {
 
 		ClientTickEvents.END_CLIENT_TICK.register(client -> {
 			if (mc.player != null && mc.player.isFallFlying() && !(mc.player.isTouchingWater() || mc.player.isSubmergedInWater())) {
-				applyWindToPlayer(mc.player);
+				FlightUtils.applyWindToPlayer(mc.player, windDirection, windSpeed);
 			}
 		});
 
@@ -60,6 +62,7 @@ public class SkydivingModClient implements ClientModInitializer {
 		BlockEntityRendererFactories.register(
 				ModBlockEntities.WINDSOCK_BLOCK_ENTITY,
 //				WindsockBlockEntityRenderer::new
+
 				// This all needed to render cone from a far, as by default
 				// it renders 64 blocks far max
 				ctx -> new WindsockBlockEntityRenderer(ctx) {
@@ -79,11 +82,4 @@ public class SkydivingModClient implements ClientModInitializer {
 		System.out.println("Hello World from my first client Fabric mod!");
 	}
 
-	private void applyWindToPlayer(ClientPlayerEntity player) {
-		if (windSpeed <= 0) return;
-
-		Vec3d push = windDirection.multiply(windSpeed);
-
-		player.addVelocity(push);
-	}
 }

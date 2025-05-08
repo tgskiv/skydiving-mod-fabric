@@ -16,10 +16,10 @@
 	"environment": "*",
 	"entrypoints": {
 		"main": [
-			"com.example.SkydivingMod"
+			"com.tgskiv.SkydivingMod"
 		],
 		"client": [
-			"com.example.SkydivingModClient"
+			"com.tgskiv.SkydivingModClient"
 		]
 	},
 	"mixins": [

@@ -1,8 +1,8 @@
 // src/main/java/com/example/skydiving/registry/ModBlockEntities.java
-package com.example.skydiving.registry;
+package com.tgskiv.skydiving.registry;
 
-import com.example.SkydivingMod; // Your main mod class
-import com.example.skydiving.blockentity.WindsockBlockEntity;
+import com.tgskiv.SkydivingMod; // Your main mod class
+import com.tgskiv.skydiving.blockentity.WindsockBlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;

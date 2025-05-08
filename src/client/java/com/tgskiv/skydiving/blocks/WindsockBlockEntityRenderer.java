@@ -1,9 +1,8 @@
-package com.example.skydiving;
+package com.tgskiv.skydiving.blocks;
 
-import com.example.SkydivingModClient;
-import com.example.skydiving.blockentity.WindsockBlockEntity;
+import com.tgskiv.SkydivingModClient;
+import com.tgskiv.skydiving.blockentity.WindsockBlockEntity;
 import net.minecraft.client.render.RenderLayer;
-import net.minecraft.client.render.RenderPhase;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.block.entity.BlockEntityRenderer;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactory;

@@ -1,8 +1,8 @@
-package com.example.skydiving.registry;
+package com.tgskiv.skydiving.registry;
 
 
-import com.example.SkydivingMod;
-import com.example.skydiving.block.WindsockBlock;
+import com.tgskiv.SkydivingMod;
+import com.tgskiv.skydiving.block.WindsockBlock;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 

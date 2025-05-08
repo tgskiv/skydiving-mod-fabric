@@ -12,35 +12,32 @@ Later, this mod was born as a simple toy to make Elytra flying a bit more fun.
 ## ✨ Features
 
 - **Dynamic Wind Direction**: Wind rotates gradually (15° per minute).
-- **Variable Wind Speed**: Changes by ±0.002 every 60 seconds (clamped between 0.0–0.02).
+- **Variable Wind Speed**: Changes every 60 seconds.
 - **Forecast System**: Maintains a queue of 15 future wind changes.
 - **Wind Sync**: Server-controlled wind synced to all clients.
 - **Command `/wind forecast`**: Shows next 5 wind changes in readable format (e.g., `2 min: SE at 0.015`).
+- **Command `/wind again`**: Regenerates the future weather. I wish we have the same in real world!
 - **Realistic flight physics**: Headwind slows you, tailwind boosts, crosswind drifts.
 - **Disables wind when player is in water**.
-- **Wind cone**: You must use command /give @p skydiving (I don't remember exactly)
+- **Wind cone**: You must use command /give @p skydivingmod:windsock (I don't remember exactly)
+- **Low altitude wind influence**:
+  Wind strength will vary depending on your altitude above the terrain — lower altitudes will have less wind effect.
+   - 0 blocks - 30% effect
+   - 5 blocks - 50% effect
+   - 10 blocks - 100% effect
+- **Crafting recipe for Wind Sock Block 🏳**:
+  Craftable visual indicators to show current wind direction and speed in-world.
 
 
 ## 🧪 Upcoming Features
 
 Your help would be appreciated! 💖
 
-1. **Crafting recipe for Wind Sock Block 🏳**
-
-   Craftable visual indicators to show current wind direction and speed in-world.
-
-2. **Faster falling when twisting fast**
+1. **Faster falling when twisting fast**
 
    By default, with elytra, you can twist around the same place and continue descending safely enough. In real skydiving, if you twist rapidly, you lose speed, thus losing handleability and falling dangerously fast.
 
-3. **Low altitude wind influence**
-
-   Wind strength will vary depending on your altitude above the terrain — lower altitudes will have less wind effect.
-   - 0 blocks - 30% effect
-   - 5 blocks - 50% effect
-   - 10 blocks - 100% effect
-
-4. **Thermal Columns & Downwash, Biome-Aware Wind**
+2. **Thermal Columns & Downwash, Biome-Aware Wind**
 
    Different biomes will influence wind direction and intensity (e.g., deserts may have stronger gusts, forests more turbulence).
    Air currents will push the player up or down based on vertical airflows, simulating thermals and sink zones.
@@ -56,9 +53,8 @@ Your help would be appreciated! 💖
    - Players are above slopes or ridges against the wind
    
    Effects are most strong when 10-100 blocks above the ground and gradually lose strength above and beyond this range 
-  
 
-- **Weather-Driven Dynamics**
+3. **Weather-Driven Dynamics**
 
   Rain, storms, and other weather conditions will dynamically alter wind behavior.
 
@@ -84,11 +80,12 @@ Place the .jar file in your Minecraft mods/ folder (client and server).
 
 🎮 Commands
 
-| Command            | Description                           |
-|--------------------|---------------------------------------|
-| `/wind forecast`   | View upcoming 5 wind changes           |
+| Command            | Description                  |
+|--------------------|------------------------------|
+| `/wind forecast`   | View upcoming 5 wind changes |
+| `/wind again`   | If you don't like the forecast, you can regenerate future weather.                             |
 
-📦 Project Structure
+## 📦 Project Structure
 
 * `SkydivingHandler` – main server logic, tick handler, command registration
 * `SkydivingModClient` – client wind application logic
@@ -100,14 +97,18 @@ Place the .jar file in your Minecraft mods/ folder (client and server).
 
 ## Tutorials used
 
-https://wiki.fabricmc.net/tutorial:blocks
-https://wiki.fabricmc.net/tutorial:blockentity
-https://wiki.fabricmc.net/tutorial:blockentityrenderers
-https://wiki.fabricmc.net/tutorial:custom_model
-https://www.youtube.com/watch?v=qXkduRD61M4
-https://www.youtube.com/watch?v=bOlbBOLfnfk
+- https://wiki.fabricmc.net/tutorial:blocks
+- https://wiki.fabricmc.net/tutorial:blockentity
+- https://wiki.fabricmc.net/tutorial:blockentityrenderers
+- https://wiki.fabricmc.net/tutorial:custom_model
+- https://www.youtube.com/watch?v=qXkduRD61M4
+- https://www.youtube.com/watch?v=bOlbBOLfnfk
 
 ## 🔗 License
 MIT – use freely, contribute freely.
 
 Built with ❤️ for future skydivers!
+
+## Author
+
+https://github.com/tgskiv

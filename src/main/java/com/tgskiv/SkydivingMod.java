@@ -1,9 +1,9 @@
-package com.example;
+package com.tgskiv;
 
-import com.example.skydiving.SkydivingHandler;
-import com.example.skydiving.network.WindSyncPayload;
-import com.example.skydiving.registry.ModBlockEntities;
-import com.example.skydiving.registry.ModBlocks;
+import com.tgskiv.skydiving.SkydivingHandler;
+import com.tgskiv.skydiving.network.WindSyncPayload;
+import com.tgskiv.skydiving.registry.ModBlockEntities;
+import com.tgskiv.skydiving.registry.ModBlocks;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import org.slf4j.Logger;

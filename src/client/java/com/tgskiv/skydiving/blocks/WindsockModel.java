@@ -1,4 +1,4 @@
-package com.example.skydiving;
+package com.tgskiv.skydiving.blocks;
 
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.*;
