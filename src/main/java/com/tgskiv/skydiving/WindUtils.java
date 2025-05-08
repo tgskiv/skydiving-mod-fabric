@@ -27,7 +27,7 @@ public class WindUtils {
         String strDirection = vectorToCompass(direction.x, direction.z);
 
         // let's say 0.02 is 10m/s
-        return String.format("Speed: %.2fm/s | Direction: %s", speed*500, strDirection);
+        return String.format("Speed: %.2fm/s | Direction: %s", speed*200, strDirection);
     }
 
 }
