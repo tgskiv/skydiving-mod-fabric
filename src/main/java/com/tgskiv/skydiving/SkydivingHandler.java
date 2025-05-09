@@ -1,10 +1,12 @@
 package com.tgskiv.skydiving;
 
+import com.tgskiv.skydiving.network.WindConfigSyncPayload;
 import com.tgskiv.skydiving.network.WindSyncPayload;
 import com.mojang.brigadier.CommandDispatcher;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 
+import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.command.CommandRegistryAccess;
 import net.minecraft.server.command.CommandManager;
@@ -12,8 +14,8 @@ import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
+import org.slf4j.LoggerFactory;
 
-import static com.tgskiv.skydiving.SkydivingConfig.*;
 import static com.tgskiv.skydiving.WindUtils.*;
 
 public class SkydivingHandler {
@@ -24,6 +26,18 @@ public class SkydivingHandler {
     public static void register() {
         ServerTickEvents.END_WORLD_TICK.register(SkydivingHandler::onWorldTick);
         CommandRegistrationCallback.EVENT.register(SkydivingHandler::registerCommands);
+
+        PayloadTypeRegistry.playC2S().register(WindConfigSyncPayload.ID, WindConfigSyncPayload.CODEC);
+
+        ServerPlayNetworking.registerGlobalReceiver(WindConfigSyncPayload.ID, (payload, context) -> {
+            LoggerFactory.getLogger("SkydivingMod").info("Received WindConfSyncPayload");
+
+            SkydivingServerConfig.updateSettings(payload);
+            windForecast.repopulateForecast();
+            ticksUntilWindChange = 0;
+
+            context.player().sendMessage(Text.of("§aSettings saved. Wind forecast regenerated."));
+        });
     }
 
     private static void registerCommands(CommandDispatcher<ServerCommandSource> dispatcher, CommandRegistryAccess access, CommandManager.RegistrationEnvironment environment) {
@@ -52,7 +66,7 @@ public class SkydivingHandler {
 
         if (ticksUntilWindChange <= 0) {
             applyNextWindChange(world);
-            ticksUntilWindChange = TICKS_PER_WIND_CHANGE;
+            ticksUntilWindChange = SkydivingServerConfig.ticksPerWindChange;
         } else {
             ticksUntilWindChange--;
         }

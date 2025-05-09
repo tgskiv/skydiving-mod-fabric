@@ -27,13 +27,13 @@ Later, this mod was born as a simple toy to make Elytra flying a bit more fun.
    - 10 blocks - 100% effect
 - **Crafting recipe for Wind Sock Block 🏳**:
   Craftable visual indicators to show current wind direction and speed in-world.
+- **Settings**. It would be good for testing purposes to change the mod settings.
 
 
 ## 🧪 Upcoming Features
 
 Your help would be appreciated! 💖
-
-1. **Settings**. It would be good for testing purposes to change the mod settings. 
+1. **Settings persistence**. For now, the state kept during one session.
 
 2. **Faster falling when twisting fast**
 

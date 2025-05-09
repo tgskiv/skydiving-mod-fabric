@@ -20,6 +20,9 @@
 		],
 		"client": [
 			"com.tgskiv.SkydivingModClient"
+		],
+		"modmenu":[
+			"com.tgskiv.skydiving.menu.SkydivingModMenuIntegration"
 		]
 	},
 	"mixins": [
@@ -37,5 +40,8 @@
 	},
 	"suggests": {
 		"another-mod": "*"
+	},
+	"custom": {
+		"modmenu:api": "true"
 	}
 }

@@ -8,8 +8,8 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Random;
 
-import static com.tgskiv.skydiving.SkydivingConfig.*;
-import static com.tgskiv.skydiving.SkydivingConfig.MAX_SPEED_DELTA;
+import static com.tgskiv.skydiving.SkydivingServerConfig.*;
+import static com.tgskiv.skydiving.SkydivingServerConfig.maxSpeedDelta;
 import static com.tgskiv.skydiving.WindUtils.*;
 
 public class WindForecast {
@@ -21,7 +21,7 @@ public class WindForecast {
 
 
     public void populateForecast() {
-        while (forecast.size() < SkydivingConfig.FORECAST_MIN_SIZE) {
+        while (forecast.size() < SkydivingServerConfig.FORECAST_MIN_SIZE) {
             generateNextWindChange();
         }
     }
@@ -39,7 +39,7 @@ public class WindForecast {
     private void generateNextWindChange() {
 
         // Rotate WIND_ROTATION_DEGREES° randomly left or right
-        double angleDelta = Math.toRadians(WIND_ROTATION_DEGREES);
+        double angleDelta = Math.toRadians(windRotationDegrees);
         if (random.nextBoolean()) {
             angleDelta = -angleDelta;
         }
@@ -60,7 +60,7 @@ public class WindForecast {
         double newZ = latestWind.direction.x * sin + latestWind.direction.z * cos;
         Vec3d newDirection = new Vec3d(newX, 0, newZ).normalize(); // length becomes 1
 
-        double newSpeed = latestWind.speed + (random.nextBoolean() ? MAX_SPEED_DELTA : -MAX_SPEED_DELTA);
+        double newSpeed = latestWind.speed + (random.nextBoolean() ? maxSpeedDelta : -maxSpeedDelta);
 
         newSpeed = clampSpeed(newSpeed);
 

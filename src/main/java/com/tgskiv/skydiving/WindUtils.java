@@ -4,7 +4,7 @@ import net.minecraft.util.math.Vec3d;
 
 public class WindUtils {
     public static double clampSpeed(double speed) {
-        return Math.max(SkydivingConfig.MIN_WIND_SPEED, Math.min(SkydivingConfig.MAX_WIND_SPEED, speed));
+        return Math.max(SkydivingServerConfig.minWindSpeed, Math.min(SkydivingServerConfig.maxWindSpeed, speed));
     }
 
     public static String vectorToCompass(double x, double z) {
