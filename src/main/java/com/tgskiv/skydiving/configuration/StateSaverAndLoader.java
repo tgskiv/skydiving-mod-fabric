@@ -11,6 +11,7 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.world.PersistentState;
 import net.minecraft.world.World;
+import org.slf4j.LoggerFactory;
 
 public class StateSaverAndLoader extends PersistentState {
 
@@ -18,6 +19,8 @@ public class StateSaverAndLoader extends PersistentState {
 
 
     public void updateSettingsWithPayload(WindConfigSyncPayload payload) {
+
+        LoggerFactory.getLogger("skydivingmod").info("updateSettingsWithPayload");
 
         skydivingConfig.ticksPerWindChange = payload.ticksPerWindChange();
         skydivingConfig.maxSpeedDelta = payload.maxSpeedDelta();

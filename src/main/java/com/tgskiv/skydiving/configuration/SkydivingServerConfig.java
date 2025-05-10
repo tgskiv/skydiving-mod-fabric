@@ -1,8 +1,6 @@
 package com.tgskiv.skydiving.configuration;
 
 
-import com.tgskiv.skydiving.network.WindConfigSyncPayload;
-
 public class SkydivingServerConfig  {
 
     public int ticksPerWindChange = 1200;

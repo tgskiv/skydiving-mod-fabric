@@ -5,6 +5,8 @@ import com.tgskiv.skydiving.configuration.StateSaverAndLoader;
 import com.tgskiv.skydiving.network.WindConfigSyncPayload;
 import com.tgskiv.skydiving.network.WindSyncPayload;
 import com.mojang.brigadier.CommandDispatcher;
+import com.tgskiv.skydiving.registry.ModBlockEntities;
+import com.tgskiv.skydiving.registry.ModBlocks;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
@@ -28,7 +30,7 @@ public class SkydivingHandler {
     private static int ticksUntilWindChange = 0;
 
     private static StateSaverAndLoader state;
-    private static final WindForecast windForecast = new WindForecast(state.skydivingConfig);
+    private static WindForecast windForecast;
 
 
 
@@ -37,11 +39,15 @@ public class SkydivingHandler {
 
         ServerLifecycleEvents.SERVER_STARTED.register(server -> {
             state = StateSaverAndLoader.getServerState(server);
+            windForecast = new WindForecast(state.skydivingConfig);
         });
+
 
         ServerTickEvents.END_WORLD_TICK.register(SkydivingHandler::onWorldTick);
         CommandRegistrationCallback.EVENT.register(SkydivingHandler::registerCommands);
 
+        // Client to Server
+        // Sends wind configuration when user saves the settings
         PayloadTypeRegistry.playC2S().register(WindConfigSyncPayload.ID, WindConfigSyncPayload.CODEC);
 
         ServerPlayNetworking.registerGlobalReceiver(WindConfigSyncPayload.ID, (payload, context) -> {
@@ -81,7 +87,7 @@ public class SkydivingHandler {
 
         if (ticksUntilWindChange <= 0) {
             applyNextWindChange(world);
-            ticksUntilWindChange = SkydivingServerConfig.config.ticksPerWindChange;
+            ticksUntilWindChange = state.skydivingConfig.ticksPerWindChange;
         } else {
             ticksUntilWindChange--;
         }

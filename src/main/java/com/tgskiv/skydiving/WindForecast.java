@@ -65,7 +65,7 @@ public class WindForecast {
 
         double newSpeed = latestWind.speed + (random.nextBoolean() ? config.maxSpeedDelta : -config.maxSpeedDelta);
 
-        newSpeed = clampSpeed(newSpeed);
+        newSpeed = clampSpeed(config, newSpeed);
 
         forecast.add(new WindChange(newDirection, newSpeed));
     }

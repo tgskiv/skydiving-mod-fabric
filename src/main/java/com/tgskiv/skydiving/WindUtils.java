@@ -4,8 +4,8 @@ import com.tgskiv.skydiving.configuration.SkydivingServerConfig;
 import net.minecraft.util.math.Vec3d;
 
 public class WindUtils {
-    public static double clampSpeed(double speed) {
-        return Math.max(SkydivingServerConfig.config.minWindSpeed, Math.min(SkydivingServerConfig.config.maxWindSpeed, speed));
+    public static double clampSpeed(SkydivingServerConfig config, double speed) {
+        return Math.max(config.minWindSpeed, Math.min(config.maxWindSpeed, speed));
     }
 
     public static String vectorToCompass(double x, double z) {
