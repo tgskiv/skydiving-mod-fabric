@@ -1,14 +1,19 @@
 package com.tgskiv.skydiving;
 
+import com.tgskiv.skydiving.configuration.SkydivingServerConfig;
+import com.tgskiv.skydiving.configuration.StateSaverAndLoader;
 import com.tgskiv.skydiving.network.WindConfigSyncPayload;
 import com.tgskiv.skydiving.network.WindSyncPayload;
 import com.mojang.brigadier.CommandDispatcher;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerWorldEvents;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.command.CommandRegistryAccess;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -21,9 +26,19 @@ import static com.tgskiv.skydiving.WindUtils.*;
 public class SkydivingHandler {
 
     private static int ticksUntilWindChange = 0;
-    private static final WindForecast windForecast = new WindForecast();
+
+    private static StateSaverAndLoader state;
+    private static final WindForecast windForecast = new WindForecast(state.skydivingConfig);
+
+
+
 
     public static void register() {
+
+        ServerLifecycleEvents.SERVER_STARTED.register(server -> {
+            state = StateSaverAndLoader.getServerState(server);
+        });
+
         ServerTickEvents.END_WORLD_TICK.register(SkydivingHandler::onWorldTick);
         CommandRegistrationCallback.EVENT.register(SkydivingHandler::registerCommands);
 
@@ -32,7 +47,7 @@ public class SkydivingHandler {
         ServerPlayNetworking.registerGlobalReceiver(WindConfigSyncPayload.ID, (payload, context) -> {
             LoggerFactory.getLogger("SkydivingMod").info("Received WindConfSyncPayload");
 
-            SkydivingServerConfig.updateSettings(payload);
+            state.updateSettingsWithPayload(payload);
             windForecast.repopulateForecast();
             ticksUntilWindChange = 0;
 
@@ -66,7 +81,7 @@ public class SkydivingHandler {
 
         if (ticksUntilWindChange <= 0) {
             applyNextWindChange(world);
-            ticksUntilWindChange = SkydivingServerConfig.ticksPerWindChange;
+            ticksUntilWindChange = SkydivingServerConfig.config.ticksPerWindChange;
         } else {
             ticksUntilWindChange--;
         }
