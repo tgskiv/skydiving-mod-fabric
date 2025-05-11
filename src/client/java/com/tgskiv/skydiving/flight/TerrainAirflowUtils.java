@@ -9,64 +9,71 @@ import net.minecraft.world.World;
 public class TerrainAirflowUtils {
 
 
+    public final static int radius = 5;
+    public final static int size = radius * 2 + 1;
+
     /**
      * Samples terrain slope in front of the player and compares it with wind direction.
-     * @param player The player entity.
      * @param windDirection The current wind direction (should be a Vec3d).
-     * @param world The world the player is in.
      * @return dot product between terrain slope direction and wind direction, in range [-1, 1].
      */
-    public static float getSlopeWindDot(ClientPlayerEntity player, Vec3d windDirection, World world) {
-        final int forwardDistance = 10;
-        final int halfWidth = 5;
+    public static float getSlopeWindDot2(float[][] heights, Vec3d windDirection) {
 
-        // Flatten player's look direction to XZ and normalize
-        Vec2f lookDir = new Vec2f((float) player.getRotationVec(1.0f).x, (float) player.getRotationVec(1.0f).z).normalize();
 
-        // Get player's ground position
-        BlockPos origin = player.getBlockPos();
-        int playerX = origin.getX();
-        int playerZ = origin.getZ();
-
-        float[][] heightMap = new float[forwardDistance][2 * halfWidth + 1];
-
-        // Sampling loop
-        for (int f = 0; f < forwardDistance; f++) {
-            for (int w = -halfWidth; w <= halfWidth; w++) {
-                // Direction vector: forward + side
-                float dx = lookDir.x * f - lookDir.y * w;
-                float dz = lookDir.y * f + lookDir.x * w;
-
-                int sampleX = playerX + Math.round(dx);
-                int sampleZ = playerZ + Math.round(dz);
-
-                int sampleY = world.getTopY(net.minecraft.world.Heightmap.Type.WORLD_SURFACE, sampleX, sampleZ);
-                heightMap[f][w + halfWidth] = sampleY;
-            }
-        }
-
-        // Compute approximate gradient using central differences
+        // Compute gradient using central difference
         float dX = 0f;
         float dZ = 0f;
+        int count = 0;
 
-        for (int f = 1; f < forwardDistance - 1; f++) {
-            for (int w = 1; w < 2 * halfWidth; w++) {
-                float dzForward = heightMap[f + 1][w] - heightMap[f - 1][w];
-                float dxSide = heightMap[f][w + 1] - heightMap[f][w - 1];
+        for (int z = 1; z < size - 1; z++) {
+            for (int x = 1; x < size - 1; x++) {
+                float dzForward = heights[z + 1][x] - heights[z - 1][x];
+                float dxSide = heights[z][x + 1] - heights[z][x - 1];
 
                 dX += dxSide;
                 dZ += dzForward;
+                count++;
             }
         }
 
-        int count = (forwardDistance - 2) * (2 * halfWidth - 1);
+        if (count == 0) return 0;
+
         dX /= count;
         dZ /= count;
 
-        Vec2f slopeDir = new Vec2f(dX, dZ).normalize();
-        Vec2f windDirXZ = new Vec2f((float) windDirection.x, (float) windDirection.z).normalize();
+        // Convert to 2D vector pointing downslope
+        Vec2f slopeDir = new Vec2f(dX, dZ);
+        if (slopeDir.lengthSquared() == 0) return 0;
+        slopeDir = slopeDir.normalize();
 
-        return windDirXZ.dot(slopeDir); // result in [-1, 1]
+        Vec2f windDir = new Vec2f((float) windDirection.x, (float) windDirection.z).normalize();
+
+        return windDir.dot(slopeDir);
     }
+
+
+    // Sample terrain heights in a grid centered around the player, aligned to XZ
+    public static float[][] sampleHeightsAround(int size, BlockPos origin, World world) {
+        float[][] heights = new float[size][size];
+
+        int px = origin.getX();
+        int pz = origin.getZ();
+
+        int halfWidth = size / 2;
+        int halfHeight = size / 2;
+
+        for (int z = 0; z < size; z++) {
+            for (int x = 0; x < size; x++) {
+                int sx = px + (x - halfWidth);
+                int sz = pz + (z - halfHeight);
+
+                int sy = world.getTopY(net.minecraft.world.Heightmap.Type.WORLD_SURFACE, sx, sz);
+                heights[z][x] = sy;
+            }
+        }
+
+        return heights;
+    }
+
 
 }

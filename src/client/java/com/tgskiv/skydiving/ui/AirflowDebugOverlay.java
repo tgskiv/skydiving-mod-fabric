@@ -1,21 +1,16 @@
 package com.tgskiv.skydiving.ui;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import com.tgskiv.SkydivingModClient;
 import com.tgskiv.skydiving.flight.TerrainAirflowUtils;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.render.RenderTickCounter;
-import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec2f;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
-
-import java.awt.Color;
 
 public class AirflowDebugOverlay implements HudRenderCallback {
 
@@ -32,14 +27,14 @@ public class AirflowDebugOverlay implements HudRenderCallback {
 
         TextRenderer textRenderer = mc.textRenderer;
         Vec3d windDir = SkydivingModClient.getWindDirection();
-        float dot = TerrainAirflowUtils.getSlopeWindDot(mc.player, windDir, mc.world);
 
-        // Identify key directions to draw the grid
-        Vec2f lookDir = new Vec2f((float) mc.player.getRotationVec(1.0f).x, (float) mc.player.getRotationVec(1.0f).z).normalize();
+
         Vec2f windVec = new Vec2f((float) windDir.x, (float) windDir.z).normalize();
         BlockPos origin = mc.player.getBlockPos();
 
-        float[][] heights = sampleHeights(lookDir, origin, mc.world);
+
+        float[][] heights = TerrainAirflowUtils.sampleHeightsAround(TerrainAirflowUtils.size, origin, mc.world);
+        float dot = TerrainAirflowUtils.getSlopeWindDot2(heights, windDir);
 
         // Identify min and max to be able to draw grayscale from black (max) to white (min)
         float min = Float.MAX_VALUE;
@@ -67,12 +62,8 @@ public class AirflowDebugOverlay implements HudRenderCallback {
         }
 
 
-        // Rotate wind into player's local 2D frame
-        float forward = windVec.dot(lookDir);
-        float right = windVec.x * lookDir.y - windVec.y * lookDir.x; // perpendicular (2D cross)
-
-        // Arrow vector in screen space: forward = down, right = right
-        Vec2f screenVec = new Vec2f(right, forward).normalize();
+        // Arrow vector in screen space: windVec (already flow direction)
+        Vec2f screenVec = windVec.normalize();
 
         // Center of grid
         int centerX = PADDING + (GRID_WIDTH * CELL_SIZE) / 2;
@@ -105,7 +96,7 @@ public class AirflowDebugOverlay implements HudRenderCallback {
 
 
     // Method collects the height map
-    private float[][] sampleHeights(Vec2f lookDir,BlockPos origin, World world) {
+    private float[][] sampleHeightsInFront(Vec2f lookDir, BlockPos origin, World world) {
         float[][] heights = new float[GRID_HEIGHT][GRID_WIDTH];
 
         int px = origin.getX();
@@ -125,6 +116,7 @@ public class AirflowDebugOverlay implements HudRenderCallback {
         }
         return heights;
     }
+
 
     private void drawLine(DrawContext drawContext, int x1, int y1, int x2, int y2, int color) {
         int dx = Math.abs(x2 - x1);
