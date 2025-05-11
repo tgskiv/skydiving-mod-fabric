@@ -8,7 +8,7 @@ import net.minecraft.util.Identifier;
 
 public record WindConfigSyncPayload(int ticksPerWindChange, double windRotationDegrees, double maxSpeedDelta, double maxWindSpeed, double minWindSpeed) implements CustomPayload {
     public static final Identifier DATA_ID = Identifier.of("skydivingmod", "sync_config");
-    public static final CustomPayload.Id<WindConfigSyncPayload> ID = new CustomPayload.Id<>(DATA_ID);
+    public static final CustomPayload.Id<WindConfigSyncPayload> PAYLOAD_ID = new CustomPayload.Id<>(DATA_ID);
 
 
     public static final PacketCodec<PacketByteBuf, WindConfigSyncPayload> CODEC =
@@ -24,6 +24,6 @@ public record WindConfigSyncPayload(int ticksPerWindChange, double windRotationD
 
     @Override
     public Id<? extends CustomPayload> getId() {
-        return ID;
+        return PAYLOAD_ID;
     }
 }

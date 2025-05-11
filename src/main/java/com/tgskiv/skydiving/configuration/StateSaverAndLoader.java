@@ -1,8 +1,6 @@
 package com.tgskiv.skydiving.configuration;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonElement;
-import com.mojang.serialization.DataResult;
 import com.tgskiv.SkydivingMod;
 import com.tgskiv.skydiving.network.WindConfigSyncPayload;
 import net.minecraft.nbt.NbtCompound;
@@ -34,6 +32,8 @@ public class StateSaverAndLoader extends PersistentState {
     @Override
     public NbtCompound writeNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
 
+        System.out.println("[SkydivingMod] Saving config: " + new Gson().toJson(skydivingConfig));
+
         Gson gson = new Gson();
         String json = gson.toJson(skydivingConfig);
         nbt.putString("skydivingConfig", json);
@@ -44,12 +44,18 @@ public class StateSaverAndLoader extends PersistentState {
     // STATIC
 
     public static StateSaverAndLoader createFromNbt(NbtCompound tag, RegistryWrapper.WrapperLookup registryLookup) {
+
         StateSaverAndLoader state = new StateSaverAndLoader();
         if (tag.contains("skydivingConfig")) {
             Gson gson = new Gson();
             state.skydivingConfig = gson.fromJson(tag.getString("skydivingConfig"), SkydivingServerConfig.class);
+
+            System.out.println("[SkydivingMod] Loaded config: " + tag.getString("skydivingConfig"));
+
         } else {
             state.skydivingConfig = new SkydivingServerConfig(); // fallback
+
+            System.out.println("[SkydivingMod] No config found, using defaults.");
         }
         return state;
     }

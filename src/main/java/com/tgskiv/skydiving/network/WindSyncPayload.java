@@ -10,7 +10,7 @@ import net.minecraft.util.math.Vec3d;
 public record WindSyncPayload(Vec3d direction, double speed) implements CustomPayload {
 
     public static final Identifier ID = Identifier.of("skydivingmod", "wind_sync");
-    public static final CustomPayload.Id<WindSyncPayload> PACKET_ID = new CustomPayload.Id<>(ID);
+    public static final CustomPayload.Id<WindSyncPayload> PAYLOAD_ID = new CustomPayload.Id<>(ID);
 
     // https://wiki.fabricmc.net/tutorial:codec
     public static final PacketCodec<PacketByteBuf, WindSyncPayload> CODEC = PacketCodec.tuple(
@@ -28,6 +28,6 @@ public record WindSyncPayload(Vec3d direction, double speed) implements CustomPa
 
     @Override
     public CustomPayload.Id<? extends CustomPayload> getId() {
-        return PACKET_ID;
+        return PAYLOAD_ID;
     }
 }

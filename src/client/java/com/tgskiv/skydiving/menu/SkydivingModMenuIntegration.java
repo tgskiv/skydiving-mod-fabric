@@ -74,7 +74,7 @@ public class SkydivingModMenuIntegration implements ModMenuApi {
 
             });
 
-            LoggerFactory.getLogger("SkydivingMod").info("Building the wind configuration");
+            LoggerFactory.getLogger("SkydivingMod").info("Building the skydivingmod settings screen");
 
             return builder.build();
         };
