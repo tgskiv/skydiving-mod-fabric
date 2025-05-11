@@ -34,8 +34,14 @@ public class AirflowDebugOverlay implements HudRenderCallback {
         Vec3d windDir = SkydivingModClient.getWindDirection();
         float dot = TerrainAirflowUtils.getSlopeWindDot(mc.player, windDir, mc.world);
 
-        float[][] heights = sampleHeights(mc.player, mc.world);
+        // Identify key directions to draw the grid
+        Vec2f lookDir = new Vec2f((float) mc.player.getRotationVec(1.0f).x, (float) mc.player.getRotationVec(1.0f).z).normalize();
+        Vec2f windVec = new Vec2f((float) windDir.x, (float) windDir.z).normalize();
+        BlockPos origin = mc.player.getBlockPos();
 
+        float[][] heights = sampleHeights(lookDir, origin, mc.world);
+
+        // Identify min and max to be able to draw grayscale from black (max) to white (min)
         float min = Float.MAX_VALUE;
         float max = Float.MIN_VALUE;
         for (float[] row : heights) {
@@ -53,36 +59,41 @@ public class AirflowDebugOverlay implements HudRenderCallback {
                 float norm = (heights[z][x] - min) / range;
                 int gray = (int) (norm * 255);
                 int drawX = PADDING + x * CELL_SIZE;
-                int drawY = PADDING + z * CELL_SIZE;
+                int drawY = PADDING + (GRID_HEIGHT - 1 - z) * CELL_SIZE;
                 int color = 0xFF000000 | (gray << 16) | (gray << 8) | gray;
 
                 drawContext.fill(drawX, drawY, drawX + CELL_SIZE, drawY + CELL_SIZE, color);
             }
         }
 
-        // Calculate wind direction angle
-        double angle = Math.atan2(windDir.z, windDir.x); // Z = north/south, X = east/west
 
-        // Draw wind arrow above the grid
+        // Rotate wind into player's local 2D frame
+        float forward = windVec.dot(lookDir);
+        float right = windVec.x * lookDir.y - windVec.y * lookDir.x; // perpendicular (2D cross)
+
+        // Arrow vector in screen space: forward = down, right = right
+        Vec2f screenVec = new Vec2f(right, forward).normalize();
+
+        // Center of grid
         int centerX = PADDING + (GRID_WIDTH * CELL_SIZE) / 2;
-        int centerY = PADDING - 2;
+        int centerY = PADDING + (GRID_HEIGHT * CELL_SIZE) / 2;
 
-        int endX = centerX + (int) (Math.cos(angle) * CELL_SIZE * 4);
-        int endY = centerY + (int) (Math.sin(angle) * CELL_SIZE * 4);
+        // Arrow length = 4 cells
+        int endX = centerX + (int) (screenVec.x * CELL_SIZE * 4);
+        int endY = centerY + (int) (screenVec.y * CELL_SIZE * 4);
 
         drawArrow(drawContext, centerX, centerY, endX, endY, 0xFF00FF00);
+
 
         // Dot product text (existing)
         String dotText = String.format("dot = %.2f", dot);
         int dotTextY = PADDING + GRID_HEIGHT * CELL_SIZE + 5;
         drawContext.drawText(textRenderer, dotText, PADDING, dotTextY, 0xFFFFFF, false);
 
-// Derived updraft/downwash
+        // Derived updraft/downwash
         double airflow = dot * 0.02; // Example multiplier
         String flowText = String.format("Vertical airflow: %.3f", airflow);
         drawContext.drawText(textRenderer, flowText, PADDING, dotTextY + 10, airflow > 0 ? 0x00FF00 : 0xFF5555, false);
-
-
 
     }
 
@@ -93,11 +104,10 @@ public class AirflowDebugOverlay implements HudRenderCallback {
 
 
 
-    private float[][] sampleHeights(ClientPlayerEntity player, World world) {
+    // Method collects the height map
+    private float[][] sampleHeights(Vec2f lookDir,BlockPos origin, World world) {
         float[][] heights = new float[GRID_HEIGHT][GRID_WIDTH];
 
-        Vec2f lookDir = new Vec2f((float) player.getRotationVec(1.0f).x, (float) player.getRotationVec(1.0f).z).normalize();
-        BlockPos origin = player.getBlockPos();
         int px = origin.getX();
         int pz = origin.getZ();
 
