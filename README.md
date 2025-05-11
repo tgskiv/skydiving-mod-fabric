@@ -27,19 +27,17 @@ Later, this mod was born as a simple toy to make Elytra flying a bit more fun.
    - 10 blocks - 100% effect
 - **Crafting recipe for Wind Sock Block 🏳**:
   Craftable visual indicators to show current wind direction and speed in-world.
-- **Settings**. It would be good for testing purposes to change the mod settings.
+- **Settings**. Settings page with a persistent state
 
 
 ## 🧪 Upcoming Features
 
 Your help would be appreciated! 💖
-1. **Settings persistence**. For now, the state kept during one session.
-
-2. **Faster falling when twisting fast**
+1. **Faster falling when twisting fast**
 
    By default, with elytra, you can twist around the same place and continue descending safely enough. In real skydiving, if you twist rapidly, you lose speed, thus losing handleability and falling dangerously fast.
 
-3. **Thermal Columns & Downwash, Biome-Aware Wind**
+2. **Thermal Columns & Downwash, Biome-Aware Wind**
 
    Different biomes will influence wind direction and intensity (e.g., deserts may have stronger gusts, forests more turbulence).
    Air currents will push the player up or down based on vertical airflows, simulating thermals and sink zones.
@@ -56,9 +54,13 @@ Your help would be appreciated! 💖
    
    Effects are most strong when 10-100 blocks above the ground and gradually lose strength above and beyond this range 
 
-4. **Weather-Driven Dynamics**
+3. **Weather-Driven Dynamics**
 
-  Rain, storms, and other weather conditions will dynamically alter wind behavior.
+   Rain, storms, and other weather conditions will dynamically alter wind behavior.
+
+4. **Summon airplane** command
+
+   It would be amazng to either cast a spell or use some radio to appear on the play flying high above.
 
 ## 🛠 Setup
 
