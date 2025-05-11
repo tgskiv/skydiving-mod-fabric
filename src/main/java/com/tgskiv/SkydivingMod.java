@@ -1,6 +1,7 @@
 package com.tgskiv;
 
 import com.tgskiv.skydiving.SkydivingHandler;
+import com.tgskiv.skydiving.network.WindConfigSyncPayload;
 import com.tgskiv.skydiving.network.WindSyncPayload;
 import com.tgskiv.skydiving.registry.ModBlockEntities;
 import com.tgskiv.skydiving.registry.ModBlocks;
@@ -26,7 +27,8 @@ public class SkydivingMod implements ModInitializer {
 		LOGGER.info("Hello Fabric world (main)!");
 
 		SkydivingHandler.register();
-		PayloadTypeRegistry.playS2C().register(WindSyncPayload.PACKET_ID, WindSyncPayload.CODEC);
+		PayloadTypeRegistry.playS2C().register(WindSyncPayload.PAYLOAD_ID, WindSyncPayload.CODEC);
+		PayloadTypeRegistry.playS2C().register(WindConfigSyncPayload.PAYLOAD_ID, WindConfigSyncPayload.CODEC);
 
 
 		ModBlocks.registerModBlocks();
