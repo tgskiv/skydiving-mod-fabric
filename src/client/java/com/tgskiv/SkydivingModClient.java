@@ -64,6 +64,7 @@ public class SkydivingModClient implements ClientModInitializer {
 		ClientTickEvents.END_CLIENT_TICK.register(client -> {
 			if (mc.player != null && mc.player.isFallFlying() && !(mc.player.isTouchingWater() || mc.player.isSubmergedInWater())) {
 				FlightUtils.applyWindToPlayer(mc.player, windDirection, windSpeed);
+				FlightUtils.applySpinFallEffect(mc.player);
 			}
 		});
 
