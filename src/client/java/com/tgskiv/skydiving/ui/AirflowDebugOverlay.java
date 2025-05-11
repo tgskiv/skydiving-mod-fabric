@@ -1,6 +1,7 @@
 package com.tgskiv.skydiving.ui;
 
 import com.tgskiv.SkydivingModClient;
+import com.tgskiv.skydiving.flight.FlightUtils;
 import com.tgskiv.skydiving.flight.TerrainAirflowUtils;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
@@ -35,6 +36,7 @@ public class AirflowDebugOverlay implements HudRenderCallback {
 
         float[][] heights = TerrainAirflowUtils.sampleHeightsAround(TerrainAirflowUtils.size, origin, mc.world);
         float dot = TerrainAirflowUtils.getSlopeWindDot2(heights, windDir);
+
 
         // Identify min and max to be able to draw grayscale from black (max) to white (min)
         float min = Float.MAX_VALUE;
@@ -81,16 +83,28 @@ public class AirflowDebugOverlay implements HudRenderCallback {
         int dotTextY = PADDING + GRID_HEIGHT * CELL_SIZE + 5;
         drawContext.drawText(textRenderer, dotText, PADDING, dotTextY, 0xFFFFFF, false);
 
-        // Derived updraft/downwash
-        double airflow = dot * 0.02; // Example multiplier
-        String flowText = String.format("Vertical airflow: %.3f", airflow);
-        drawContext.drawText(textRenderer, flowText, PADDING, dotTextY + 10, airflow > 0 ? 0x00FF00 : 0xFF5555, false);
+        int infoY = dotTextY + 25;
+        int spacing = 10;
 
-    }
+        drawContext.drawText(textRenderer,
+                String.format("heightCompensatedWindSpeed: %.4f", FlightUtils.heightCompensatedWindSpeed),
+                PADDING, infoY, 0xAAAAFF, false);
+        infoY += spacing;
 
-    private String getCompassDirection(int angle) {
-        String[] directions = {"E", "NE", "N", "NW", "W", "SW", "S", "SE"};
-        return directions[(int) Math.round(((double) angle % 360) / 45.0) % 8];
+        drawContext.drawText(textRenderer,
+                String.format("angularSpeed: %.2f", FlightUtils.angularSpeed),
+                PADDING, infoY, 0xFFAAFF, false);
+        infoY += spacing;
+
+        drawContext.drawText(textRenderer,
+                String.format("spinFallDownwardBoost: %.4f", FlightUtils.spinFallDownwardBoost),
+                PADDING, infoY, 0xFF7777, false);
+        infoY += spacing;
+
+        drawContext.drawText(textRenderer,
+                String.format("updraftStrength: %.4f", FlightUtils.updraftStrength),
+                PADDING, infoY, 0x77FF77, false);
+
     }
 
 

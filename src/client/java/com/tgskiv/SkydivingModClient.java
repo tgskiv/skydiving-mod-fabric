@@ -64,10 +64,17 @@ public class SkydivingModClient implements ClientModInitializer {
 
 		// Apply wind on tick
 		ClientTickEvents.END_CLIENT_TICK.register(client -> {
-			if (mc.player != null && mc.player.isFallFlying() && !(mc.player.isTouchingWater() || mc.player.isSubmergedInWater())) {
-				FlightUtils.applyWindToPlayer(mc.player, windDirection, windSpeed);
-				FlightUtils.applySpinFallEffect(mc.player);
-			}
+			if (mc.player == null) { return; }
+
+			boolean inFlight = (mc.player.isFallFlying() && !(mc.player.isTouchingWater() || mc.player.isSubmergedInWater()));
+
+			if (inFlight) FlightUtils.applyWindToPlayer(mc.player, windDirection, windSpeed);
+
+			FlightUtils.getSpinFallEffect(mc.player);
+			if (inFlight) FlightUtils.applySpinFallEffect(mc.player);
+
+			FlightUtils.getUpdraftEffect(mc.player, windDirection);
+			if (inFlight) FlightUtils.applyUpdraftEffect(mc.player);
 		});
 
 		// Register the Windsock Block Entity renderer
