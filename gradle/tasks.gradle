@@ -1,0 +1,61 @@
+processResources {
+    inputs.property "version", project.version
+    filesMatching("fabric.mod.json") {
+        expand "version": project.version
+    }
+}
+
+jar {
+    from("LICENSE") {
+        rename { "${it}_${project.base.archivesName.get()}" }
+    }
+}
+
+tasks.named("build").configure {
+    finalizedBy("savePatchVersion")
+}
+tasks.register("savePatchVersion") {
+    doLast {
+        props.setProperty("patch", fullVersion.tokenize('.').last())
+        file("version.properties").withOutputStream { props.store(it, null) }
+        println "📝 Saved patch version to version.properties: ${patch}"
+    }
+}
+
+tasks.register('buildAndCopy') {
+    dependsOn build
+    doLast {
+        def modsPath = env.getProperty("MC_MODS_DIR")
+        if (!modsPath?.trim()) {
+            println "⚠ MC_MODS_DIR not defined. Skipping copy."
+            return
+        }
+
+        def modsDir = file(modsPath)
+        def libsDir = layout.buildDirectory.dir("libs").get().asFile
+
+
+        if (!modsDir.exists()) {
+            println "⚠ Directory does not exist: ${modsDir.absolutePath}"
+            return
+        }
+
+        modsDir.listFiles({ dir, name ->
+            name.startsWith('skydivingmod') && name.endsWith('.jar') && !name.contains('-sources')
+        } as FilenameFilter)?.each { it.delete() }
+
+        def jarName = "skydivingmod-${project.version}.jar"
+        def builtJar = new File(libsDir, jarName)
+
+        if (builtJar.exists()) {
+            copy {
+                from libsDir
+                include jarName
+                into modsDir
+            }
+            println "✅ Copied $jarName to ${modsDir.absolutePath}"
+        } else {
+            println "❌ Expected JAR not found: $jarName"
+        }
+    }
+}

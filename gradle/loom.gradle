@@ -1,0 +1,15 @@
+repositories {
+    maven { name = "Terraformers"; url = "https://maven.terraformersmc.com/" }
+    maven { url "https://maven.shedaniel.me/" }
+    maven { url "https://maven.terraformersmc.com/releases/" }
+}
+
+loom {
+    splitEnvironmentSourceSets()
+    mods {
+        "skydivingmod" {
+            sourceSet sourceSets.main
+            sourceSet sourceSets.client
+        }
+    }
+}

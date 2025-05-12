@@ -1,6 +1,6 @@
-# Skydiving Mod for Minecraft based on Fabric
+# Paragliding/Skydiving Mod for Minecraft based on Fabric
 
-A Minecraft Fabric mod that adds realistic **wind physics** affecting only Elytra gliding.
+A Minecraft Fabric mod that adds realistic **wind physics** affecting Elytra gliding.
 
 Being a skydiver myself, I noticed similarities between gliding with Elytras
 and skydiving with small canopies. I immediately decided to share the experience
@@ -23,26 +23,22 @@ Later, this mod was born as a simple toy to make Elytra flying a bit more fun.
 - **Wind cone**: You must use command /give @p skydivingmod:windsock (I don't remember exactly)
 - **Low altitude wind influence**:
   Wind strength will vary depending on your altitude above the terrain — lower altitudes will have less wind effect.
-   - 0-5 blocks - 30% effect
-   - 5-10 blocks - 50% effect
-   - 10+ blocks - 100% effect
+  - 0-5 blocks - 30% effect
+  - 5-10 blocks - 50% effect
+  - 10+ blocks - 100% effect
 - **Crafting recipe for Wind Sock Block 🏳**:
   Craftable visual indicators to show current wind direction and speed in-world.
 - **Settings**. Settings page with a persistent state
-- **Thermal Columns & Downwash, Biome-Aware Wind**
+- **Thermal Columns & Downwash**
 
   Different biomes will influence wind direction and intensity (e.g., deserts may have stronger gusts, forests more turbulence).
   Air currents will push the player up or down based on vertical airflows, simulating thermals and sink zones.
 
-  Raise when day:
-    - Bare soil, dry grasslands, or any type of stone blocks slopes heat up quickly under the sun.
-
   Raise always:
-    - Players are above slopes or ridges which facing the wind
+  - Players are above slopes or ridges which facing the wind
 
   Falling always:
-    - Players are above rivers, lakes
-    - Players are above slopes or ridges against the wind
+  - Players are above slopes or ridges against the wind
 
   Effects are most strong when 10-100 blocks above the ground and gradually lose strength above and beyond this range
 
@@ -51,23 +47,51 @@ Later, this mod was born as a simple toy to make Elytra flying a bit more fun.
 
 Your help would be appreciated! 💖
 
-1. ~~**Weather-Driven Dynamics**~~
+1. **Biome-Aware Wind**
+
+   Raise during the daytime:
+   - Bare soil, dry grasslands, or any type of stone blocks slopes heat up quickly under the sun.
+
+2. ~~**Weather-Driven Dynamics**~~
 
    ~~Rain, storms, and other weather conditions will dynamically alter wind behavior.~~
 
-2. **Summon airplane** command
+3. **Summon airplane** command
 
-   It would be amazng to either cast a spell or use some radio to appear on the play flying high above.
+   It would be amazing to either cast a spell or use some radio to appear on the play flying high above.
 
 ## 🛠 Setup
 
 This mod requires:
 
-- **Fabric Loader** `0.14.x`
-- **Fabric API**
-- Minecraft `1.20.1`
+- **Fabric Loader** `0.16.14`
+- **Minecraft** `1.21.1`
 
-### Build
+## Install
+
+Place the .jar file in your Minecraft mods/ folder (client and server).
+
+## In-game 🎮 console commands
+
+| Command                | Description                                                        |
+|------------------------|--------------------------------------------------------------------|
+| `/wind forecast`       | View upcoming 5 wind changes                                       |
+| `/wind again`          | If you don't like the forecast, you can regenerate future weather. |
+| `/wind hud true/false` | Show debug hud                                                     |
+
+# Developers
+
+## 🛠 Setup
+
+This mod requires:
+
+- **Fabric Loader** `0.16.14`
+- Minecraft `1.21.1`
+- Java 21
+- Gradle 8
+
+
+## Build
 
 ```bash
 ./gradlew build
@@ -75,16 +99,8 @@ This mod requires:
 
 The mod .jar will be located in build/libs/.
 
-## Install
 
-Place the .jar file in your Minecraft mods/ folder (client and server).
 
-🎮 Commands
-
-| Command            | Description                  |
-|--------------------|------------------------------|
-| `/wind forecast`   | View upcoming 5 wind changes |
-| `/wind again`   | If you don't like the forecast, you can regenerate future weather.                             |
 
 ## 📦 Project Structure
 
@@ -104,11 +120,13 @@ Place the .jar file in your Minecraft mods/ folder (client and server).
 - https://wiki.fabricmc.net/tutorial:custom_model
 - https://www.youtube.com/watch?v=qXkduRD61M4
 - https://www.youtube.com/watch?v=bOlbBOLfnfk
+- ChatGPT, of course
 
 ## 🔗 License
+
 MIT – use freely, contribute freely.
 
-Built with ❤️ for future skydivers!
+Built with ❤️ for future skydivers/paragliders!
 
 ## Author
 

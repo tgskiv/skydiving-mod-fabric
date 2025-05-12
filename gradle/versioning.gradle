@@ -1,0 +1,21 @@
+group = project.maven_group
+
+ext.props = new Properties()
+file("version.properties").withInputStream { props.load(it) }
+
+ext.baseVersion = project.mod_version
+ext.patch = props.getProperty("patch").toInteger() + 1
+ext.fullVersion = "${baseVersion}.${patch}"
+
+version = fullVersion
+
+base {
+    archivesName = project.archives_base_name
+}
+
+
+
+//gradle.buildFinished {
+//    props.setProperty("patch", fullVersion.tokenize('.').last())
+//    file("version.properties").withOutputStream { props.store(it, null) }
+//}
