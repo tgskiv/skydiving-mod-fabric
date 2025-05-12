@@ -1,5 +1,7 @@
 # Paragliding/Skydiving Mod for Minecraft based on Fabric
 
+<img align="left" width="100" height="100" src="src/main/resources/assets/skydivingmod/icon.png">
+
 A Minecraft Fabric mod that adds realistic **wind physics** affecting Elytra gliding.
 
 Being a skydiver myself, I noticed similarities between gliding with Elytras
