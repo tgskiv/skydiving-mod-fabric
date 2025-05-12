@@ -1,6 +1,8 @@
 package com.tgskiv.skydiving;
 
+import com.mojang.brigadier.arguments.BoolArgumentType;
 import com.tgskiv.skydiving.configuration.StateSaverAndLoader;
+import com.tgskiv.skydiving.network.ToggleAirflowDebugPayload;
 import com.tgskiv.skydiving.network.WindConfigSyncPayload;
 import com.tgskiv.skydiving.network.WindSyncPayload;
 import com.mojang.brigadier.CommandDispatcher;
@@ -83,6 +85,19 @@ public class SkydivingHandler {
                             source.sendFeedback(() -> Text.literal("§aWind forecast regenerated."), false);
                             return 1;
                         })
+                )
+                .then(CommandManager.literal("hud")
+                        .then(CommandManager.argument("visible", BoolArgumentType.bool())
+                                .executes(context -> {
+                                    ServerCommandSource source = context.getSource();
+                                    boolean visible = BoolArgumentType.getBool(context, "visible");
+                                    ServerPlayerEntity player = source.getPlayer();
+
+                                    ServerPlayNetworking.send(player, new ToggleAirflowDebugPayload(visible));
+                                    source.sendFeedback(() -> Text.literal("§aAirflow HUD " + (visible ? "enabled" : "disabled") + "."), false);
+                                    return 1;
+                                })
+                        )
                 )
         );
     }

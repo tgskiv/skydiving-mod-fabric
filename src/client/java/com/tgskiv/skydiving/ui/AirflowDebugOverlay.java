@@ -15,6 +15,9 @@ import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 
 public class AirflowDebugOverlay implements HudRenderCallback {
 
+    public static boolean visible = false;
+
+
     private static final int CELL_SIZE = 8;
     private static final int GRID_WIDTH = 11;
     private static final int GRID_HEIGHT = 10;
@@ -22,6 +25,9 @@ public class AirflowDebugOverlay implements HudRenderCallback {
 
     @Override
     public void onHudRender(DrawContext drawContext, RenderTickCounter tickCounter) {
+
+        if (!visible) return;
+
         MinecraftClient mc = MinecraftClient.getInstance();
 //        if (mc.player == null || mc.world == null || !mc.player.isFallFlying()) return;
         if (mc.player == null || mc.world == null) return;
@@ -102,8 +108,16 @@ public class AirflowDebugOverlay implements HudRenderCallback {
         infoY += spacing;
 
         drawContext.drawText(textRenderer,
+                String.format("slopeStrengthInfluence: %.4f", FlightUtils.slopeStrengthInfluence),
+                PADDING, infoY, 0x7777FF, false);
+        infoY += spacing;
+
+        drawContext.drawText(textRenderer,
                 String.format("updraftStrength: %.4f", FlightUtils.updraftStrength),
                 PADDING, infoY, 0x77FF77, false);
+        // infoY += spacing;
+
+
 
     }
 

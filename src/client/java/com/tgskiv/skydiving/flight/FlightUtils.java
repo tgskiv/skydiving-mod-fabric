@@ -25,6 +25,8 @@ public class FlightUtils {
     public static double angularSpeed = 0;
     public static double updraftStrength = 0;
 
+    public static float slopeStrengthInfluence = 0;
+
     private static float lastYaw = 0f;
     private static float lastPitch = 0f;
 
@@ -130,24 +132,33 @@ public class FlightUtils {
                 max = Math.max(max, h);
             }
         }
-        float slopeStrength = max - min;
+        float slopeDifference = max - min;
+        //    3 =  10 - 7 // low slope
+        //    7 =  10 - 3 // high slope
+
+
+        slopeStrengthInfluence = Math.min(slopeDifference/10, 1.2f);
 
         // Don't apply effect for nearly flat terrain
-        if (slopeStrength < 2.5f) return;
+        if (slopeDifference < 2.5f) slopeStrengthInfluence = 0;
 
-        // Determine altitude factor: peak at 10 blocks, fades out by 25 blocks
-        int blocksBelow = getBlocksBelowPlayer(player);
-        if (blocksBelow < 0 || blocksBelow > 25) return;
+        // Determine altitude factor: peak at 10 blocks,
+        // fades out by 25 blocks higher than the highest point on the height map.
+        double playerY = player.getY();
+        double heightAboveMaxTerrain = playerY - max;
 
-        float altitudeFactor = 0f;
-        if (blocksBelow <= 10) {
+        if (heightAboveMaxTerrain > 20) slopeStrengthInfluence = 0;
+
+        float altitudeFactor;
+        if (heightAboveMaxTerrain <= 10) {
             altitudeFactor = 1f;
-        } else if (blocksBelow <= 25) {
-            altitudeFactor = 1f - ((blocksBelow - 10) / 15f);
+        } else {
+            altitudeFactor = (float) (1 - (heightAboveMaxTerrain - 10) / 10.0);
         }
 
+
         // Final vertical effect multiplier
-        updraftStrength = dot * altitudeFactor * 0.03; // max boost ~0.03 when aligned
+        updraftStrength = dot * altitudeFactor * slopeStrengthInfluence * 0.03; // max boost ~0.03 when aligned
     }
 
     /**

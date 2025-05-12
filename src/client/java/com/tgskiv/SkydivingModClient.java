@@ -5,6 +5,7 @@ import com.tgskiv.skydiving.blocks.ModModelLayers;
 import com.tgskiv.skydiving.blocks.WindsockModel;
 import com.tgskiv.skydiving.flight.FlightUtils;
 import com.tgskiv.skydiving.menu.SkydivingClientConfig;
+import com.tgskiv.skydiving.network.ToggleAirflowDebugPayload;
 import com.tgskiv.skydiving.network.WindConfigSyncPayload;
 import com.tgskiv.skydiving.network.WindSyncPayload;
 import com.tgskiv.skydiving.registry.ModBlockEntities;
@@ -59,6 +60,13 @@ public class SkydivingModClient implements ClientModInitializer {
 					SkydivingClientConfig.maxWindSpeed = payload.maxWindSpeed();
 					SkydivingClientConfig.minWindSpeed = payload.minWindSpeed();
 				})
+		);
+
+		// Subscribe to Hud display command
+		ClientPlayNetworking.registerGlobalReceiver(ToggleAirflowDebugPayload.PAYLOAD_ID, (payload, context) ->
+				context.client().execute(() ->
+					AirflowDebugOverlay.visible = payload.visible()
+				)
 		);
 
 
