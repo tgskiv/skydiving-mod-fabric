@@ -1,6 +1,7 @@
 package com.tgskiv;
 
 import com.tgskiv.skydiving.SkydivingHandler;
+import com.tgskiv.skydiving.network.ToggleAirflowDebugPayload;
 import com.tgskiv.skydiving.network.WindConfigSyncPayload;
 import com.tgskiv.skydiving.network.WindSyncPayload;
 import com.tgskiv.skydiving.registry.ModBlockEntities;
@@ -28,6 +29,7 @@ public class SkydivingMod implements ModInitializer {
 
 		SkydivingHandler.register();
 		PayloadTypeRegistry.playS2C().register(WindSyncPayload.PAYLOAD_ID, WindSyncPayload.CODEC);
+		PayloadTypeRegistry.playS2C().register(ToggleAirflowDebugPayload.PAYLOAD_ID, ToggleAirflowDebugPayload.CODEC);
 		PayloadTypeRegistry.playS2C().register(WindConfigSyncPayload.PAYLOAD_ID, WindConfigSyncPayload.CODEC);
 
 

@@ -5,13 +5,16 @@ import com.tgskiv.skydiving.blocks.ModModelLayers;
 import com.tgskiv.skydiving.blocks.WindsockModel;
 import com.tgskiv.skydiving.flight.FlightUtils;
 import com.tgskiv.skydiving.menu.SkydivingClientConfig;
+import com.tgskiv.skydiving.network.ToggleAirflowDebugPayload;
 import com.tgskiv.skydiving.network.WindConfigSyncPayload;
 import com.tgskiv.skydiving.network.WindSyncPayload;
 import com.tgskiv.skydiving.registry.ModBlockEntities;
+import com.tgskiv.skydiving.ui.AirflowDebugOverlay;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
+import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactories;
 import net.minecraft.util.math.Vec3d;
@@ -59,13 +62,27 @@ public class SkydivingModClient implements ClientModInitializer {
 				})
 		);
 
+		// Subscribe to Hud display command
+		ClientPlayNetworking.registerGlobalReceiver(ToggleAirflowDebugPayload.PAYLOAD_ID, (payload, context) ->
+				context.client().execute(() ->
+					AirflowDebugOverlay.visible = payload.visible()
+				)
+		);
+
 
 		// Apply wind on tick
 		ClientTickEvents.END_CLIENT_TICK.register(client -> {
-			if (mc.player != null && mc.player.isFallFlying() && !(mc.player.isTouchingWater() || mc.player.isSubmergedInWater())) {
-				FlightUtils.applyWindToPlayer(mc.player, windDirection, windSpeed);
-				FlightUtils.applySpinFallEffect(mc.player);
-			}
+			if (mc.player == null) { return; }
+
+			boolean inFlight = (mc.player.isFallFlying() && !(mc.player.isTouchingWater() || mc.player.isSubmergedInWater()));
+
+			if (inFlight) FlightUtils.applyWindToPlayer(mc.player, windDirection, windSpeed);
+
+			FlightUtils.getSpinFallEffect(mc.player);
+			if (inFlight) FlightUtils.applySpinFallEffect(mc.player);
+
+			FlightUtils.getUpdraftEffect(mc.player, windDirection);
+			if (inFlight) FlightUtils.applyUpdraftEffect(mc.player);
 		});
 
 		// Register the Windsock Block Entity renderer
@@ -83,6 +100,7 @@ public class SkydivingModClient implements ClientModInitializer {
 				}
 		);
 		EntityModelLayerRegistry.registerModelLayer(ModModelLayers.WINDSOCK_LAYER, WindsockModel::getTexturedModelData);
+		HudRenderCallback.EVENT.register(new AirflowDebugOverlay());
 
 		System.out.println("Hello World from my first client Fabric mod!");
 	}
