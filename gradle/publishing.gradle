@@ -6,3 +6,16 @@ publishing {
         }
     }
 }
+
+
+modrinth {
+    token = env.getProperty("MODRINTH_TOKEN") // set in env variables
+    projectId = "skydiving" // e.g., "skydiving-mod"
+    versionNumber = mod_version // from gradle.properties
+    versionName = "Skydiving Mod v$mod_version"
+    versionType = "release" // or "beta", "alpha"
+    uploadFile = remapJar
+    gameVersions = ["1.21.1"]
+    loaders = ["fabric"]
+//    changelog = file("CHANGELOG.md").text // optional
+}

@@ -1,6 +1,13 @@
 plugins {
 	id 'fabric-loom' version '1.7.1'
 	id 'maven-publish'
+	id 'com.modrinth.minotaur' version '2.+' // Add this
+}
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(21)
+	}
 }
 
 apply from: 'gradle/env.gradle'
