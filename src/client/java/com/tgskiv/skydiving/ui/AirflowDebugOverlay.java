@@ -3,6 +3,7 @@ package com.tgskiv.skydiving.ui;
 import com.tgskiv.SkydivingModClient;
 import com.tgskiv.skydiving.flight.FlightUtils;
 import com.tgskiv.skydiving.flight.TerrainAirflowUtils;
+import com.tgskiv.skydiving.flight.WindInterpolator;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawContext;
@@ -33,7 +34,7 @@ public class AirflowDebugOverlay implements HudRenderCallback {
         if (mc.player == null || mc.world == null) return;
 
         TextRenderer textRenderer = mc.textRenderer;
-        Vec3d windDir = SkydivingModClient.getWindDirection();
+        Vec3d windDir = WindInterpolator.getWindDirection();
 
 
         Vec2f windVec = new Vec2f((float) windDir.x, (float) windDir.z).normalize();

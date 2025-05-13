@@ -13,9 +13,9 @@ Later, this mod was born as a simple toy to make Elytra flying a bit more fun.
 
 ## ✨ Features
 
-- **Dynamic Wind Direction**: Wind rotates gradually (15° per minute).
-- **Variable Wind Speed**: Changes every 60 seconds.
-- **Forecast System**: Maintains a queue of 15 future wind changes.
+- **Dynamic Wind Direction**: Wind rotates gradually (15° per minute - can be set in the settings).
+- **Variable Wind Speed**: Gradually changes every XX seconds (can be set in the settings)
+- **Forecast System**: Maintains a queue of 5 future wind changes.
 - **Wind Sync**: Server-controlled wind synced to all clients.
 - **Command `/wind forecast`**: Shows next 5 wind changes in readable format (e.g., `2 min: SE at 0.015`).
 - **Command `/wind again`**: Regenerates the future weather. I wish we have the same in real world!
