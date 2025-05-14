@@ -1,6 +1,6 @@
 # Paragliding/Skydiving Mod for Minecraft based on Fabric
 
-<img align="left" width="100" height="100" src="src/main/resources/assets/skydivingmod/icon.png">
+<img align="left" alt="Mod logo" width="128" height="128" src="src/main/resources/assets/skydivingmod/icon.png">
 
 A Minecraft Fabric mod that adds realistic **wind physics** affecting Elytra gliding.
 
@@ -13,36 +13,26 @@ Later, this mod was born as a simple toy to make Elytra flying a bit more fun.
 
 ## ✨ Features
 
-- **Dynamic Wind Direction**: Wind rotates gradually (15° per minute - can be set in the settings).
-- **Variable Wind Speed**: Gradually changes every XX seconds (can be set in the settings)
-- **Forecast System**: Maintains a queue of 5 future wind changes.
-- **Wind Sync**: Server-controlled wind synced to all clients.
-- **Command `/wind forecast`**: Shows next 5 wind changes in readable format (e.g., `2 min: SE at 0.015`).
-- **Command `/wind again`**: Regenerates the future weather. I wish we have the same in real world!
 - **Realistic flight physics**: Headwind slows you, tailwind boosts, crosswind drifts.
+- **Dynamic Wind Direction and Speed**: Wind rotates gradually (15° per change - can be set in the settings).
+- **Forecast System**: Maintains a forecast of 5 future wind changes (see Settings).
+- **Wind Sync**: Server-controlled wind synced to all clients.
+- **Console Commands**: See section below
 - **Faster falling when twisting fast**: By default, with elytra, you can twist around the same place and continue descending safely enough. In real skydiving, if you twist rapidly, you lose speed, thus losing handleability and falling dangerously fast.
-- **Disables wind when player is in water**.
-- **Wind cone**: You must use command /give @p skydivingmod:windsock (I don't remember exactly)
+- **Wind cone**: You can either craft it (see section below), or use the command /give @p skydivingmod:windsock
 - **Low altitude wind influence**:
   Wind strength will vary depending on your altitude above the terrain — lower altitudes will have less wind effect.
   - 0-5 blocks - 30% effect
   - 5-10 blocks - 50% effect
   - 10+ blocks - 100% effect
-- **Crafting recipe for Wind Sock Block 🏳**:
-  Craftable visual indicators to show current wind direction and speed in-world.
 - **Settings**. Settings page with a persistent state
-- **Thermal Columns & Downwash**
+- **Updrift and Downwash**
 
-  Different biomes will influence wind direction and intensity (e.g., deserts may have stronger gusts, forests more turbulence).
   Air currents will push the player up or down based on vertical airflows, simulating thermals and sink zones.
+  - Raise when Players are above slopes or ridges which facing the wind.
+  - Falling when Players are above slopes or ridges against the wind.
 
-  Raise always:
-  - Players are above slopes or ridges which facing the wind
-
-  Falling always:
-  - Players are above slopes or ridges against the wind
-
-  Effects are most strong when 10-100 blocks above the ground and gradually lose strength above and beyond this range
+  Effects are most strong when 20 blocks above the highest point in 5 block radius and gradually lose strength above and beyond this range
 
 
 ## 🧪 Upcoming Features
@@ -51,6 +41,7 @@ Your help would be appreciated! 💖
 
 1. **Biome-Aware Wind**
 
+   Different biomes will influence wind direction and intensity (e.g., deserts may have stronger gusts, forests more turbulence).
    Raise during the daytime:
    - Bare soil, dry grasslands, or any type of stone blocks slopes heat up quickly under the sun.
 
@@ -80,6 +71,7 @@ Place the .jar file in your Minecraft mods/ folder (client and server).
 | `/wind forecast`       | View upcoming 5 wind changes                                       |
 | `/wind again`          | If you don't like the forecast, you can regenerate future weather. |
 | `/wind hud true/false` | Show debug hud                                                     |
+| `/give @p skydivingmod:windsock` | Give player a windsock item                                        |
 
 # Developers
 
