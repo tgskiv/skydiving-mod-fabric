@@ -94,8 +94,7 @@ public class FlightUtils {
         // You can tune this threshold and scale factor
         double threshold = 10.0;
         if (angularSpeed > threshold) {
-            LOGGER.warn("angularSpeed {}", angularSpeed);
-            MinecraftClient.getInstance().inGameHud.getChatHud().addMessage(Text.literal(String.format("angularSpeed %.2f", angularSpeed)));
+            // MinecraftClient.getInstance().inGameHud.getChatHud().addMessage(Text.literal(String.format("angularSpeed %.2f", angularSpeed)));
 
             spinFallDownwardBoost = (angularSpeed - threshold) * 0.01;
 

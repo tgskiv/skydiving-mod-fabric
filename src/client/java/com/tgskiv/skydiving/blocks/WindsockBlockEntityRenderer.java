@@ -2,6 +2,7 @@ package com.tgskiv.skydiving.blocks;
 
 import com.tgskiv.SkydivingModClient;
 import com.tgskiv.skydiving.blockentity.WindsockBlockEntity;
+import com.tgskiv.skydiving.flight.WindInterpolator;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.block.entity.BlockEntityRenderer;
@@ -21,8 +22,8 @@ public class WindsockBlockEntityRenderer implements BlockEntityRenderer<Windsock
 
     @Override
     public void render(WindsockBlockEntity entity, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
-        Vec3d windDir = SkydivingModClient.getWindDirection();
-        double windSpeed = SkydivingModClient.getWindSpeed();
+        Vec3d windDir = WindInterpolator.getWindDirection();
+        double windSpeed = WindInterpolator.getWindSpeed();
 
 
         if (!windDir.equals(Vec3d.ZERO)) {

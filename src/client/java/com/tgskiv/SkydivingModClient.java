@@ -4,6 +4,7 @@ package com.tgskiv;
 import com.tgskiv.skydiving.blocks.ModModelLayers;
 import com.tgskiv.skydiving.blocks.WindsockModel;
 import com.tgskiv.skydiving.flight.FlightUtils;
+import com.tgskiv.skydiving.flight.WindInterpolator;
 import com.tgskiv.skydiving.menu.SkydivingClientConfig;
 import com.tgskiv.skydiving.network.ToggleAirflowDebugPayload;
 import com.tgskiv.skydiving.network.WindConfigSyncPayload;
@@ -25,18 +26,6 @@ public class SkydivingModClient implements ClientModInitializer {
 
 	private static final MinecraftClient mc = MinecraftClient.getInstance();
 
-	// Example wind vector: blowing NW at high speed
-	private static Vec3d windDirection = Vec3d.ZERO;
-	private static double windSpeed = 0.0;
-
-
-	public static Vec3d getWindDirection() {
-		return windDirection;
-	}
-	public static double getWindSpeed() {
-		return windSpeed;
-	}
-
 	@Override
 	public void onInitializeClient() {
 
@@ -45,8 +34,7 @@ public class SkydivingModClient implements ClientModInitializer {
 				WindSyncPayload.PAYLOAD_ID,
 				(payload, context) ->
 					context.client().execute(() -> {
-						windDirection = payload.direction();
-						windSpeed = payload.speed();
+						WindInterpolator.updateTarget(payload.direction(), payload.speed());
 					})
 
 		);
@@ -74,14 +62,16 @@ public class SkydivingModClient implements ClientModInitializer {
 		ClientTickEvents.END_CLIENT_TICK.register(client -> {
 			if (mc.player == null) { return; }
 
+			WindInterpolator.tick();
+
 			boolean inFlight = (mc.player.isFallFlying() && !(mc.player.isTouchingWater() || mc.player.isSubmergedInWater()));
 
-			if (inFlight) FlightUtils.applyWindToPlayer(mc.player, windDirection, windSpeed);
+			if (inFlight) FlightUtils.applyWindToPlayer(mc.player, WindInterpolator.getWindDirection(), WindInterpolator.getWindSpeed());
 
 			FlightUtils.getSpinFallEffect(mc.player);
 			if (inFlight) FlightUtils.applySpinFallEffect(mc.player);
 
-			FlightUtils.getUpdraftEffect(mc.player, windDirection);
+			FlightUtils.getUpdraftEffect(mc.player, WindInterpolator.getWindDirection());
 			if (inFlight) FlightUtils.applyUpdraftEffect(mc.player);
 		});
 
