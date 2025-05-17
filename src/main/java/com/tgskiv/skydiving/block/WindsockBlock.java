@@ -4,17 +4,28 @@ import com.tgskiv.skydiving.blockentity.WindsockBlockEntity;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.item.Item;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.RegistryKeys;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
 import org.jetbrains.annotations.Nullable;
 
+import static com.tgskiv.SkydivingMod.MOD_ID;
+
 public class WindsockBlock extends BlockWithEntity implements BlockEntityProvider {
 
     // Define the shape of the block (optional, but good for collision)
     // Adjust these values based on your model's dimensions
     private static final VoxelShape SHAPE = VoxelShapes.cuboid(0.3, 0.0, 0.3, 0.7, 2, 0.7); // Example shape
+
+    public static String NAME = "windsock";
+    public static Identifier ID = Identifier.of(MOD_ID, NAME);
+    public static RegistryKey<Block> BLOCK_KEY = RegistryKey.of(RegistryKeys.BLOCK, ID);
+    public static RegistryKey<Item> ITEM_KEY = RegistryKey.of(RegistryKeys.ITEM, ID);
 
     public WindsockBlock(Settings settings) {
         super(settings);
@@ -28,6 +39,8 @@ public class WindsockBlock extends BlockWithEntity implements BlockEntityProvide
     public BlockRenderType getRenderType(BlockState state) {
         return BlockRenderType.INVISIBLE;
     }
+
+
 
     @Override
     public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {

@@ -64,7 +64,7 @@ public class SkydivingModClient implements ClientModInitializer {
 
 			WindInterpolator.tick();
 
-			boolean inFlight = (mc.player.isFallFlying() && !(mc.player.isTouchingWater() || mc.player.isSubmergedInWater()));
+			boolean inFlight = (mc.player.isGliding() && !(mc.player.isTouchingWater() || mc.player.isSubmergedInWater()));
 
 			if (inFlight) FlightUtils.applyWindToPlayer(mc.player, WindInterpolator.getWindDirection(), WindInterpolator.getWindSpeed());
 

@@ -34,12 +34,13 @@
 	],
 	"depends": {
 		"fabricloader": ">=0.14.21",
-		"minecraft": "~1.21.1",
+		"minecraft": [
+			"1.21.2"
+		],
 		"java": ">=21",
 		"fabric-api": "*"
 	},
 	"suggests": {
-		"another-mod": "*"
 	},
 	"custom": {
 		"modmenu:api": "true"

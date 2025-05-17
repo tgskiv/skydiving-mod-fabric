@@ -13,21 +13,26 @@ import net.minecraft.registry.Registry;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.Identifier;
 
+import static com.tgskiv.skydiving.block.WindsockBlock.ITEM_KEY;
+
 public class ModBlocks {
 
     // Create and register the Windsock block instance
-    public static final Block WINDSOCK = registerBlock("windsock",
+    public static final Block WINDSOCK = registerBlock(
+            WindsockBlock.NAME,
             new WindsockBlock(AbstractBlock.Settings
                     .create()
                     .solid()
                     .strength(2.0f) // Adjust hardness
                     .sounds(BlockSoundGroup.WOOD) // Adjust sounds
-                    .nonOpaque() // Important for BERs so light passes through the model correctly
+                    .nonOpaque()
+                    .registryKey(WindsockBlock.BLOCK_KEY)
     ));
 
 
-    public static final Item WINDSOCK_ITEM = registerBlockItem("windsock",
-            new BlockItem(WINDSOCK, new Item.Settings())
+    public static final Item WINDSOCK_ITEM = registerBlockItem(
+            WindsockBlock.NAME,
+            new BlockItem(WINDSOCK, new Item.Settings().registryKey(ITEM_KEY))
     );
 
 

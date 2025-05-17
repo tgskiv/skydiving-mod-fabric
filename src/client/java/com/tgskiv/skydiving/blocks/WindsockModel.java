@@ -20,7 +20,7 @@ public class WindsockModel extends Model {
 
 
     public WindsockModel(ModelPart root) {
-        super(RenderLayer::getEntityCutout);
+        super(root, RenderLayer::getEntityCutout);
         this.root = root;
         this.stick = root.getChild("stick");
         this.cone1 = root.getChild("cone1");
@@ -78,9 +78,9 @@ public class WindsockModel extends Model {
         return TexturedModelData.of(modelData, 32, 32);
     }
 
-    @Override
-    public void render(MatrixStack matrices, VertexConsumer vertices, int light, int overlay, int color) {
-        root.render(matrices, vertices, light, overlay, color);
-    }
+//    @Override
+//    public void render(MatrixStack matrices, VertexConsumer vertices, int light, int overlay, int color) {
+//        root.render(matrices, vertices, light, overlay, color);
+//    }
 
 }
