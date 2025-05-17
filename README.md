@@ -58,7 +58,7 @@ Your help would be appreciated! 💖
 This mod requires:
 
 - **Fabric Loader** `0.16.14`
-- **Minecraft** `1.21.1`
+- **Minecraft** `1.21.2`
 
 ## Install
 
