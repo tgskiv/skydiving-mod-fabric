@@ -166,7 +166,7 @@ public class FlightUtils {
      */
     public static void applyUpdraftEffect(ClientPlayerEntity player) {
 
-        if (!player.isFallFlying()) return;
+        if (!player.isGliding()) return;
         if (Math.abs(updraftStrength) < 0.001) return;
 
         // Apply vertical velocity

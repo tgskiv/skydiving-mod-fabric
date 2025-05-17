@@ -15,7 +15,7 @@ modrinth {
     versionName = "Skydiving Mod v$mod_version"
     versionType = "release" // or "beta", "alpha"
     uploadFile = remapJar
-    gameVersions = ["1.21.1"]
+    gameVersions = [minecraft_version]
     loaders = ["fabric"]
 //    changelog = file("CHANGELOG.md").text // optional
 }
