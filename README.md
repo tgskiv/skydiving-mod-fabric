@@ -64,6 +64,16 @@ This mod requires:
 
 Place the .jar file in your Minecraft mods/ folder (client and server).
 
+## Crafting
+
+<img alt="Mod logo" width="200" height="" src="docs/crafting.png">
+
+| | | |
+| - | - | - | 
+| Stick | White wool | Red wool |
+| Stick | White wool | |
+| Stick | | |
+
 ## In-game 🎮 console commands
 
 | Command                | Description                                                        |
