@@ -13,7 +13,7 @@ public record ToggleAirflowDebugPayload(boolean visible) implements CustomPayloa
 
 
     public static final PacketCodec<PacketByteBuf, ToggleAirflowDebugPayload> CODEC = PacketCodec.tuple(
-            PacketCodecs.BOOL, ToggleAirflowDebugPayload::visible,
+            PacketCodecs.BOOLEAN, ToggleAirflowDebugPayload::visible,
             ToggleAirflowDebugPayload::new
     );
 

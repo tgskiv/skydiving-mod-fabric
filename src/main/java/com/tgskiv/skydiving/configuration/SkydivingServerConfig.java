@@ -1,6 +1,14 @@
 package com.tgskiv.skydiving.configuration;
 
 
+import com.google.gson.Gson;
+import com.mojang.datafixers.util.Pair;
+import com.mojang.serialization.*;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.nbt.NbtCompound;
+import net.minecraft.server.world.ServerWorld;
+import net.minecraft.util.Uuids;
+
 public class SkydivingServerConfig  {
 
     public int ticksPerWindChange = 1200;

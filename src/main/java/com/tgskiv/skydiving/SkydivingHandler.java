@@ -1,7 +1,7 @@
 package com.tgskiv.skydiving;
 
 import com.mojang.brigadier.arguments.BoolArgumentType;
-import com.tgskiv.skydiving.configuration.StateSaverAndLoader;
+import com.tgskiv.skydiving.configuration.SkydivingConfigPersistentState;
 import com.tgskiv.skydiving.network.ToggleAirflowDebugPayload;
 import com.tgskiv.skydiving.network.WindConfigSyncPayload;
 import com.tgskiv.skydiving.network.WindSyncPayload;
@@ -26,7 +26,7 @@ public class SkydivingHandler {
 
     private static int ticksUntilWindChange = 0;
 
-    private static StateSaverAndLoader state;
+    private static SkydivingConfigPersistentState state;
     private static WindForecast windForecast;
 
 
@@ -35,7 +35,7 @@ public class SkydivingHandler {
     public static void register() {
 
         ServerLifecycleEvents.SERVER_STARTED.register(server -> {
-            state = StateSaverAndLoader.getServerState(server);
+            state = SkydivingConfigPersistentState.getServerState(server);
             windForecast = new WindForecast(state.skydivingConfig);
         });
 

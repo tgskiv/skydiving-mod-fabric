@@ -11,6 +11,8 @@ jar {
     }
 }
 
+
+
 tasks.named("build").configure {
     finalizedBy("savePatchVersion")
 }
