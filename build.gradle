@@ -1,8 +1,14 @@
 plugins {
-	id 'fabric-loom'
+	id 'fabric-loom' version '1.8.9'
 	id 'maven-publish'
-	id 'com.modrinth.minotaur'
+	id 'com.modrinth.minotaur' version '2.+' // Add this
 }
+//
+//plugins {
+//	id 'fabric-loom'
+//	id 'maven-publish'
+//	id 'com.modrinth.minotaur'
+//}
 
 java {
 	toolchain {

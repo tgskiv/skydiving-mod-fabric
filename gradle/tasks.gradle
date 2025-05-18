@@ -14,6 +14,7 @@ jar {
 tasks.named("build").configure {
     finalizedBy("savePatchVersion")
 }
+
 tasks.register("savePatchVersion") {
     doLast {
         props.setProperty("patch", fullVersion.tokenize('.').last())
@@ -59,7 +60,6 @@ tasks.register('buildAndCopy') {
         }
     }
 }
-
 tasks.register("publishToModrinth") {
     group = "publishing"
     dependsOn tasks.modrinth
